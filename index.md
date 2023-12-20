@@ -8,7 +8,7 @@ nav_order: 1
 
 A website about CSE13S @ UCSC.[^1] *The* 13S.
 
-[Site made with Just With Docs][Just the Docs]
+A class where you learn the C programming language, UNIX, tools like `make`, and put your life on pause for 10 weeks.
 
 ----
 

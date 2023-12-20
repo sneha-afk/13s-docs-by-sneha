@@ -6,13 +6,12 @@ has_toc: true
 ---
 
 # Troubleshooting
-
-Common issues plague the early stage of learning C. Usually, nothing about C itself. Here are common solutions with sources when needed.
-
 {: .no_toc }
 
+Common issues plague the early stages of learning C. Usually, nothing about C itself. Here are common solutions with sources when needed.
+
 ## Table of contents
-{: .no_toc .text-delta }
+{: .no_toc }
 
 1. TOC
 {:toc}
@@ -20,8 +19,6 @@ Common issues plague the early stage of learning C. Usually, nothing about C its
 ## Git
 
 ### Author identity unknown
-
-This error is displayed similar to:
 
 ```
 Author identity unknown
@@ -36,7 +33,7 @@ to set your account's default identity.
 Omit --global to set the identity only to this repository.
 ```
 
-Git commits must be signed with a name and email.
+Git commits must be signed with a name and email, this error states that it cannot find a name or email configured to sign a commit.
 * Set your name and email. Do as it said, i.e:
 
 ```bash
@@ -50,7 +47,7 @@ $ git config --global user.name "Sammy Slug"
 $ git config --global user.email mine@personal.com
 $ git config --global user.name sluggo_wuggo
 
-# Within an class's repo
+# Within a repository for a class
 $ git config --local user.email slug@ucsc.edu
 $ git config --local user.name “Sammy Slug”
 ```
@@ -65,4 +62,4 @@ In most terminal operations, quotation marks are optional with single-tokens, bu
 `make` stops when the compiler finds a compilation error, so the final executable cannot be made. Fix all compilation errors and try once more.
 
 {: .note }
-Copilation *warnings* are usually excused by the compiler, but in general warnings should also be dealt with as much as possible.
+Compilation *warnings* are usually excused by the compiler and the executable might be made. As good practice, the goal is the most quiet compilation with no warnings either, so fix warnings as well.
