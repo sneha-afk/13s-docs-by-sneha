@@ -14,9 +14,11 @@ has_toc: true
 1. TOC
 {:toc}
 
+---
+
 ## Intro
 
-> Git is one of the most important tools you will learn, other than knowing :wq (thank me later).
+> Git is one of the most important tools you will learn, other than knowing `:wq` (thank me later).
 
 Git is a version control system, similar to labeling your essay drafts “essay”, “essay_draft2”, “essay_feedback”, “essay_final”, “ESSAY_FINAL_FINAL.” It is imperative to know Git, and know it well. Situations like being stuck in Baskin’s E2 building during a horrible winter storm when the power, internet, and cell service go down in the middle of working on a CSE13S assignment is when you want to know Git (true story).
 
@@ -50,8 +52,43 @@ Previewing [Commands](#commands), the “`origin main`” (Note: the default bra
 
 ## Terms
 
+### Repository
+
+### Commit
+
+### Hash
+
+### Remote
+
+### Branch
+
+### And there's more.
 
 ## Commands
+
+### `git clone`
+
+### `git add`
+
+### `git restore`
+
+### `git commit`
+
+### `git push`
+
+### `git pull`
+
+### `git log`
+
+### `git remote`
+
+### `git status`
+
+### `git config`
+
+### `git checkout`
+
+### Extra commands
 
 ## Best practices
 
@@ -62,5 +99,5 @@ Previewing [Commands](#commands), the “`origin main`” (Note: the default bra
 
 ---
 
-[TS: Installation]: /docs/troubleshooting.md/#installation
+[TS: Installation]: troubleshooting.md/#installation
 
