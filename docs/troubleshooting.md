@@ -67,13 +67,60 @@ $ git config --global user.name "Sammy Slug"
 $ git config --global user.email mine@personal.com
 $ git config --global user.name sluggo_wuggo
 
-# Within a repository for a class
+# Within a repository
 $ git config --local user.email slug@ucsc.edu
 $ git config --local user.name “Sammy Slug”
 ```
 
 {: .note}
 In most terminal operations, quotation marks are optional with single-tokens, but is necessary when tokens are space separated like a `"FirstName Last Name"`
+
+### fatal: Need to specify how to reconcile divergent branches
+
+Upon a `git pull`, you may get:
+```
+hint: You have divergent branches and need to specify how to reconcile them.
+hint: You can do so by running one of the following commands sometime before
+hint: your next pull:
+hint: 
+hint:   git config pull.rebase false  # merge
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint: 
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+fatal: Need to specify how to reconcile divergent branches
+```
+
+Notice how this message includes a solution *within* its text, just like many Git errors.
+
+The error is saying there are divergent branches, or inconsistent branch history, and Git needs to know how to deal with them upon a pull. The easiest method is to merge the two branches into one, so enter:
+```bash
+git config pull.rebase false
+git pull # try the pull again
+```
+
+### fatal: loose object [ ... ] is corrupt
+
+Upon any Git command, you might get some error like:
+```
+error: object file .git/objects/... is empty
+error: object file .git/objects/... is empty
+fatal: loose object ... (stored in .git/objects/...) is corrupt
+```
+
+This usually happens with improper shutdowns of your virtual machine.
+
+Navigate to the root of your repository (where `.git` is located):[^1]
+
+```bash
+find .git/objects/ -size 0 -exec rm -f {} \;
+git fetch origin
+```
+
+---
 
 ## `make`
 
@@ -83,3 +130,7 @@ In most terminal operations, quotation marks are optional with single-tokens, bu
 
 {: .note }
 Compilation *warnings* are usually excused by the compiler and the executable might be made. As good practice, the goal is the most quiet compilation with no warnings either, so fix warnings as well.
+
+---
+
+[^1]: loose object fix from [Stack Overflow](https://stackoverflow.com/a/40098509)

@@ -197,9 +197,10 @@ There are many, many more, but these should give you an idea of the types of com
 Arithmetic expressions are evaluated within` $(( ))`. 
 
 {. .important}
-Do not confuse this with $( ), which interprets the inside as a command to run!
+Do not confuse this with `$( )`, which `bash` interprets the inside as a command to run!
 
 The typical operators apply intuitively in bash:
+
 |             |                |
 | ----------- | -------------- |
 | `+`         | Addition       |
@@ -229,7 +230,7 @@ echo "a - b = $(($a - $b))"
 
 ## Logic and Testing
 
-There are several flags that can be used to do logical/conditional testing, especially when it comes to files. Notable ones include (assume there is a path stored in a variable called $file):[^1]
+There are several flags that can be used to do logical/conditional testing, especially when it comes to files. Notable ones include (assume there is a path stored in a variable called `$file`):[^1]
 
 |             |                            |
 | ----------- | -------------------------- |
@@ -241,9 +242,9 @@ There are several flags that can be used to do logical/conditional testing, espe
 | `-w`        | True if the file is writable to the current user |
 
 
-These test conditions can be placed within if-else blocks structured as followed. Some people choose to put the then on a separate line, it works either way as long as there is a concluding fi. 
+These test conditions can be placed within if-else blocks structured as followed. Some people choose to put the then on a separate line, it works either way as long as there is a concluding `fi`. 
 
-{. .note}
+{: .note}
 Be mindful of the space between the [ ] and the conditions!
 
 ```bash
@@ -297,7 +298,7 @@ else
 fi
 ```
 
-{. .highlight}
+{: .highlight}
 I used single `[ ]`, which is technically correct but an older standard, it’s best to use `[[ ]]` for compatibility with many different systems.
 
 

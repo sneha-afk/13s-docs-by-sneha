@@ -107,8 +107,7 @@ Say you are an employee tasked to work on a feature A. Instead of wrecking havoc
 
 |       |  |
 |------ |--|
-| <img src="assets/git-branch-example.png" alt="diagram depicting a sequence of git commits"/> | A peek into the branches of Microsoft’s (open-source!) [VSCode repository](https://github.com/microsoft/vscode).<BR><BR>Why do you think having separate branches for bug fixes, new features, etc. is crucial to separate away from production code that countless users are using at this moment?
- |
+| <img src="assets/git-branch-example.png" alt="diagram depicting a sequence of git commits"/> | A peek into the branches of Microsoft’s (open-source!) [VSCode repository](https://github.com/microsoft/vscode).<BR><BR>Why do you think having separate branches for bug fixes, new features, etc. is crucial to separate away from production code that countless users are using at this moment? |
 
 ### And there's more.
 
@@ -195,7 +194,8 @@ For example, once I have set up my SSH key, to clone my repo in a folder called 
 $ git clone git@git.ucsc.edu:cse13s/fall23/snde.git cse13s
 ```
 
-> Doesn’t matter that I have leaked to you my SSH url, your public key has not been added to my GitLab account! Try doing the above and it will fail.
+{: .highlight}
+Doesn’t matter that I have leaked to you my SSH url, your public key has not been added to my GitLab account! Try doing the above and it will fail.
 
 
 ### `.gitignore`
@@ -209,7 +209,9 @@ The `.gitignore` file is to be at the top level of your repo (i.e, in the same v
 For any programming class, it’s generally not appreciated to leave IDE artifacts (`.vscode`, `.idea`, `.metadata`, etc.) as your personal development settings have nothing to do with the code (and may even contain some secrets). For a C class, you should make sure to **never commit object files (extension `.o`) or executables** (these can be harder to track on UNIX where `.exe` is not needed to designate executable files, be aware of what is staged using git status!).
 
 The following is an example `.gitignore` for a typical Python project, in which I had some VSCode shenanigans, a virtual environment in a folder called `.venv`, and the potential for compiled Python code to appear. 
-{. .note} * means any sequence of matching characters. ! negates the ignoring.
+
+{: .note}
+* means any sequence of matching characters. ! negates the ignoring.
 
 ```
 # Contents of .gitignore
