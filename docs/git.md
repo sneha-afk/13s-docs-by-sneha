@@ -35,6 +35,7 @@ $ sudo apt-get install git
 
 If you are having issues with installing, consult the [troubleshooting page][TS: Installation].
 
+---
 
 ## TL;DR
 
@@ -49,6 +50,8 @@ git push [origin main]
 Add, commit, push. Add, commit, push.
 
 Previewing [Commands](#commands), the “`origin main`” (Note: the default branch may be also be called `master`) does not have to be specified if you’re working with one remote and one branch (more about these terms later), but it’s the safest way to know exactly where you are pushing, and I recommend those two arguments each time to prevent errors.
+
+---
 
 ## Terms
 
@@ -111,6 +114,8 @@ Say you are an employee tasked to work on a feature A. Instead of wrecking havoc
 
 A great dev would know the basics of merging, forks, pull requests, rebasing (shudders), and more. Do not stress, these are learned with time and patience, and are not required for the simple task of coding and submitting assignments. As with any tool however, I implore you to learn more about Git, as it separates a good dev from a great dev. And your friends will appreciate you fixing their daunting Git errors (many more true stories).
 
+---
+
 ## Commands
 
 Here are some commands and some of the most common options for them.
@@ -153,15 +158,85 @@ Here’s some that you would greatly benefit from exploring, and you may have to
 
 | Command                | Explanation                                       |
 |------------------------|---------------------------------------------------|
-| **`git merge`**      | Attempt to merge the code of two divergent branches (or commits) into one.<BR><BR>Merge conflicts are a rite of passage. Learning how to deal with them is important. If you are diligent about pushing/pulling as required, you will hopefully not fall into a need to merge. |
-| **`git rebase`**     | Rebase your branch to settle history. |
-| **`git stash`**      |  A half-way between saving and committing.<BR><BR> Useful if you want to keep something, but have not committed to it (ha ha). |
+| **`git merge`**        | Attempt to merge the code of two divergent branches (or commits) into one.<BR><BR>Merge conflicts are a rite of passage. Learning how to deal with them is important. If you are diligent about pushing/pulling as required, you will hopefully not fall into a need to merge. |
+| **`git rebase`**       | Rebase your branch to settle history. |
+| **`git stash`**        |  A half-way between saving and committing.<BR><BR> Useful if you want to keep something, but have not committed to it (ha ha). |
+
+---
 
 ## Best practices
 
 ### Setting up SSH keys
 
+SSH keys work by having a public and private key to assert the identity of a client, no password required. The public key can be known by anyone, but the private key is the missing half that authorizes any transaction. This is much more secure than using the standard HTTPS login credentials that can easily be intercepted as SSH keys are unique and should be as private as can be (**NEVER** post your private key ANYWHERE). Repos can often be cloned through SSH and I recommend you do so.
+
+The quickest procedure for doing so is:
+* Run `ssh-keygen`
+    * There are several customization options. You should be fine with the default settings by pressing ENTER for each option, you can read more about the options here.
+* Print out the public key (do NOT touch the private key):
+    * Assuming default settings, the public key is in `id_rsa.pub`, the private key is in `id_rsa`.
+    * If you stored the keys elsewhere, same procedure still applies with that other location.
+
+```bash
+cat ~/.ssh/id_rsa.pub
+```
+
+* Copy the output. Add this SSH key to your GitLab account within the preferences.
+    * Preferences -> SSH keys -> Add new key
+* Navigate to wherever you would like your repo to be: `cd <something>`
+* Now navigate to any GitLab repository, you can now use the SSH url to clone it. Click the blue "Clone" button, and then click the clipboard icon near the "Clone with SSH" option.
+* Use the following command on the terminal:
+```bash
+$ git clone <ssh_url> [optional: folder name like cse13s]
+```
+
+For example, once I have set up my SSH key, to clone my repo in a folder called `cse13s`:
+```bash
+$ git clone git@git.ucsc.edu:cse13s/fall23/snde.git cse13s
+```
+
+> Doesn’t matter that I have leaked to you my SSH url, your public key has not been added to my GitLab account! Try doing the above and it will fail.
+
+
 ### `.gitignore`
+
+A `.gitignore` file does just that, it tells the Git system what to ignore when detecting modified files to stage and prevents them from being committed to the repo. These can be specific names of folders or files, or more commonly wildcards to detect anything of a certain file extension,  and each pattern is placed on separate lines (like the examples below). Repos rarely ever contain compiled files or executables, as they are simply meant to be storage for code.
+
+The `.gitignore` file is to be at the top level of your repo (i.e, in the same visible folder as the `.git` folder) and should generally always exist no matter the project. Some repo hosting sites provide template `.gitignore`’s when you specify what the primary language of the project will be!
+
+{. .note} If `git add` is not detecting `.gitignore`, use `git add -f .gitignore` to force the staging.
+
+For any programming class, it’s generally not appreciated to leave IDE artifacts (`.vscode`, `.idea`, `.metadata`, etc.) as your personal development settings have nothing to do with the code (and may even contain some secrets). For a C class, you should make sure to **never commit object files (extension `.o`) or executables** (these can be harder to track on UNIX where `.exe` is not needed to designate executable files, be aware of what is staged using git status!).
+
+The following is an example `.gitignore` for a typical Python project, in which I had some VSCode shenanigans, a virtual environment in a folder called `.venv`, and the potential for compiled Python code to appear. 
+{. .note} * means any sequence of matching characters. ! negates the ignoring.
+
+```
+# Contents of .gitignore
+.vscode
+.venv
+*.pyc
+*.exe # to be safe!
+!.py  # just in case, make sure to account for all .py files!
+```
+
+Now imagine a pedantic C programmer who does not like any other language. In an effort to ban any files from other common languages, their `.gitignore` may look like:
+
+```
+# No Python!
+*.py
+*.pyc
+
+# No Java!
+*.java
+*.class
+
+# But never any object files :)
+*.o
+```
+
+
+{. .note} Mac users often find a settings folder/file called `.DS_Store` in their repos when they develop on Mac (developing on your VM will most likely not cause this problem), please be sure to filter it out in `.gitignore`.
 
 
 ---
