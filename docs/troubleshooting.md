@@ -16,6 +16,26 @@ Common issues plague the early stages of learning C. Usually, nothing about C it
 1. TOC
 {:toc}
 
+## General
+
+### Installation
+
+#### "`username` is not in the sudoers file"
+
+If you are having issues with installing, such as an error saying:
+```
+<username> is not in the sudoers file. This incident will be reported
+```
+
+Then run the following commands (Source: Stack Overflow):
+```bash
+$ su
+$ password: <password of your VM>
+$ usermod -aG sudo <username>
+```
+
+Restart your VM, and try the installation again.
+
 ## Git
 
 ### Author identity unknown
