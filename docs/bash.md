@@ -33,7 +33,7 @@ At the top of any script file, it's generally good practice to specify which she
 
 Once you have opened a terminal, you will most likely end up somewhere like:
 ```
-slug@13s:~/A/B/C$
+slug@13s:~$
 ```
 
 The `~` (tilde) indicates you are in your home directory.
@@ -79,12 +79,12 @@ These operators are used to redirect the file streams into other processes.
 | `2>`      | Redirect `stderr` (stderr 2> another process or file) |
 | `&>`      | Redirect both `stdout` and `stderr` (stdout/err &> another) |
 
-For example, sending the content of text file a.txt into the sort command:
+For example, sending the content of text file `a.txt` into the `sort` command:
 ```bash
 sort < a.txt
 ```
 
-And then storing the sorted lines into b.txt:
+And then storing the sorted lines into `b.txt`:
 ```bash
 sort < a.txt > b.txt
 ```
@@ -112,7 +112,8 @@ An alternative syntax to the previous sorted `a.txt` to `b.txt` example would be
 ```bash
 cat a.txt | sort > b.txt
 ```
-{. .note} Notice the last part required `a >` to write into `b.txt`. 
+{. .note}
+Notice the last part required `a >` to write into `b.txt`. 
 
 Since this was a one step process, it may feel redundant.
 
@@ -134,6 +135,7 @@ Additionally, UNIX has `man` (manual) pages for bash commands (and C functions t
 man echo
 ```
 
+<img src="assets/bash-man-example.png" alt="command line output of man echo" height=450 />
 
 ### Command-Line
 
@@ -192,8 +194,112 @@ There are many, many more, but these should give you an idea of the types of com
 
 ## Arithmetic
 
+Arithmetic expressions are evaluated within` $(( ))`. 
+
+{. .important}
+Do not confuse this with $( ), which interprets the inside as a command to run!
+
+The typical operators apply intuitively in bash:
+|             |                |
+| ----------- | -------------- |
+| `+`         | Addition       |
+| `-`         | Subtraction    |
+| `*`         | Multiplication |
+| `/`         | Division<BR>**Note:** this is integer division (`//` in Python) and only returns the whole number quotient, i.e 16/3 gives back 5.    |
+| `%`         | Modulo (return back the remainder, 16%3 = 1) |
+| `+=, -=, *=, /=, %=` | Complete the operation with the right hand constant and apply it to the left |
+|  `**`       | Exponentiation |
+
+Here’s a quick example of storing into a variable and using echo:
+```bash
+#!/bin/bash
+
+a=$1
+b=$2
+
+# Can also store in a variable
+sum=$((a + b))
+echo "a + b = $sum"
+
+# Making things less ambiguous with $var_name is helpful for you!
+echo "a - b = $(($a - $b))"
+```
+
 ---
 
 ## Logic and Testing
 
+There are several flags that can be used to do logical/conditional testing, especially when it comes to files. Notable ones include (assume there is a path stored in a variable called $file):[^1]
 
+|             |                            |
+| ----------- | -------------------------- |
+| `-a $file`  | True if the file exists    |
+| `-e $file`  | Also returns True if the file exists |
+| `-f $file`  | True if the file exists and is a “regular file” (i.e, not a directory file) |
+| `-r`        | True if the file is readable to the current user |
+| `-s`        | True if the file exists, and is not empty |
+| `-w`        | True if the file is writable to the current user |
+
+
+These test conditions can be placed within if-else blocks structured as followed. Some people choose to put the then on a separate line, it works either way as long as there is a concluding fi. 
+
+{. .note}
+Be mindful of the space between the [ ] and the conditions!
+
+```bash
+if [[ test conditions ]]; then
+	# (some action)
+elif [[ another condition ]] then
+	# (some action)
+...
+else
+	# (last action)
+fi
+```
+
+
+For math comparisons, you can use `if (( ))` or use the following flags within an `if [[ ]]` statement:
+
+|             |                               |
+| ----------- | ----------------------------- |
+| `a -eq b`   | Equality, a == b              |
+| `a -ne b`   | Not equal, a != b             |
+| `a -lt b`   | Strictly less than, a < b     |
+| `a -le b`   | Less than or equal, a <= b    |
+| `a -gt b`   | Strictly greater than, a < b  |
+| `a -ge b`   | Greater than or equal, a >= b |
+
+Example: this script takes in a single integer and outputs a corresponding message:
+
+```bash
+#!/bin/bash
+
+num=$1
+
+# Verify its a number
+if [[ ! $num =~ '^[0-9]+$' ]]; then
+    echo "Error: only input integers"
+    exit 1
+fi
+
+if [ $num -lt 5 ]; then
+    echo "Less than 5!"
+elif [ $num -le 10 ]; then
+    echo "Less than or equal to 10!"
+elif [ $num -gt 10 ]; then
+    echo "Greater than 10!"
+elif [ $num -ge 15 ]; then
+    echo "Greater than or equal to 15!"
+elif [ $num -eq 50 ]; then
+    echo "Equal to 50!"
+else
+    echo "Really big!"
+fi
+```
+
+{. .highlight}
+I used single `[ ]`, which is technically correct but an older standard, it’s best to use `[[ ]]` for compatibility with many different systems.
+
+
+---
+[^1]: Bash tests from [Stack Overflow](https://askubuntu.com/a/558990)
