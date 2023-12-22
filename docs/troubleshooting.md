@@ -11,7 +11,7 @@ has_toc: true
 Common issues plague the early stages of learning C. Usually, nothing about C itself. Here are common solutions with sources when needed.
 
 ## Table of contents
-{: .no_toc }
+{: .no_toc .text-delta }
 
 1. TOC
 {:toc}
@@ -94,6 +94,7 @@ hint: invocation.
 fatal: Need to specify how to reconcile divergent branches
 ```
 
+{: .note}
 Notice how this message includes a solution *within* its text, just like many Git errors.
 
 The error is saying there are divergent branches, or inconsistent branch history, and Git needs to know how to deal with them upon a pull. The easiest method is to merge the two branches into one, so enter:

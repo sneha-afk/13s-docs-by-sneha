@@ -51,10 +51,10 @@ slug@13s:~/A/B/C$
 | `~`          | Home directory |
 | `/dev/null`  | Like a trash can, content written into it disappears | 
 
+See the [`cd` command](#command-line) for specific information on moving around.
 
-**Pro tip**: you can use TAB to autocomplete the name of a file/directory once you have entered enough information for it to autocomplete. If multiple files have the same prefix, TAB can at least cover the prefix.
-
-See the `cd` command for specific information on moving around.
+{: .note}
+You can use TAB to autocomplete the name of a file/directory once you have entered enough information for it to autocomplete. If multiple files have the same prefix, TAB can at least cover the prefix.
 
 ---
 
@@ -112,7 +112,7 @@ An alternative syntax to the previous sorted `a.txt` to `b.txt` example would be
 ```bash
 cat a.txt | sort > b.txt
 ```
-{. .note}
+{: .note}
 Notice the last part required `a >` to write into `b.txt`. 
 
 Since this was a one step process, it may feel redundant.
@@ -129,13 +129,14 @@ cat a.txt | sort | uniq -c > b.txt
 
 Google exists. However, make sure you are able to explain what each command you are using is doing.
 
-Additionally, UNIX has `man` (manual) pages for bash commands (and C functions too):
+{: .note}
+UNIX has `man` (manual) pages for bash commands (and C functions too):
 
 ```bash
 man echo
 ```
 
-<img src="assets/bash-man-example.png" alt="command line output of man echo" height=450 />
+<img src="assets/bash-man-example.png" alt="command line output of man echo" height=300 />
 
 ### Command-Line
 
@@ -206,10 +207,13 @@ The typical operators apply intuitively in bash:
 | `+`         | Addition       |
 | `-`         | Subtraction    |
 | `*`         | Multiplication |
-| `/`         | Division<BR>**Note:** this is integer division (`//` in Python) and only returns the whole number quotient, i.e 16/3 gives back 5.    |
-| `%`         | Modulo (return back the remainder, 16%3 = 1) |
+| `/`         | Division    |
+| `%`         | Modulo (remainder) |
 | `+=, -=, *=, /=, %=` | Complete the operation with the right hand constant and apply it to the left |
 |  `**`       | Exponentiation |
+
+{: .important}
+Bash does integer division like Python's `//`, so `16/3 = 5`
 
 Here’s a quick example of storing into a variable and using echo:
 ```bash
@@ -244,8 +248,8 @@ There are several flags that can be used to do logical/conditional testing, espe
 
 These test conditions can be placed within if-else blocks structured as followed. Some people choose to put the then on a separate line, it works either way as long as there is a concluding `fi`. 
 
-{: .note}
-Be mindful of the space between the [ ] and the conditions!
+{: .important}
+Be mindful of the space between the `[ ]` and the conditions!
 
 ```bash
 if [[ test conditions ]]; then
@@ -258,7 +262,6 @@ else
 fi
 ```
 
-
 For math comparisons, you can use `if (( ))` or use the following flags within an `if [[ ]]` statement:
 
 |             |                               |
@@ -270,7 +273,7 @@ For math comparisons, you can use `if (( ))` or use the following flags within a
 | `a -gt b`   | Strictly greater than, a < b  |
 | `a -ge b`   | Greater than or equal, a >= b |
 
-Example: this script takes in a single integer and outputs a corresponding message:
+The following script takes in a single integer and outputs a corresponding message:
 
 ```bash
 #!/bin/bash

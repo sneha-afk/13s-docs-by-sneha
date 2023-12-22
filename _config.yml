@@ -38,7 +38,7 @@ gh_edit_link: true
 gh_edit_link_text: "See source on GitHub"
 gh_edit_repository: "https://github.com/sneha-afk/13s-docs" # the github URL for your repo
 gh_edit_branch: "main" # the branch that your docs is served from
-gh_edit_source: docs # the source that your files originate from
+# gh_edit_source: docs # the source that your files originate from
 gh_edit_view_mode: "tree" # "tree" or "edit" if you want the user to jump into the editor immediately
 
 last_edit_timestamp: true

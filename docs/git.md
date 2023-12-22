@@ -167,11 +167,14 @@ Here’s some that you would greatly benefit from exploring, and you may have to
 
 ### Setting up SSH keys
 
-SSH keys work by having a public and private key to assert the identity of a client, no password required. The public key can be known by anyone, but the private key is the missing half that authorizes any transaction. This is much more secure than using the standard HTTPS login credentials that can easily be intercepted as SSH keys are unique and should be as private as can be (**NEVER** post your private key ANYWHERE). Repos can often be cloned through SSH and I recommend you do so.
+SSH keys work by having a public and private key to assert the identity of a client, no password required. The public key can be known by anyone, but the private key is the missing half that authorizes any transaction. This is much more secure than using the standard HTTPS login credentials that can easily be intercepted as SSH keys are unique and should be as private as can be. Repos can often be cloned through SSH and I recommend you do so.
+
+{: .important}
+NEVER post your private key ANYWHERE. You never have a reason to touch it.
 
 The quickest procedure for doing so is:
 * Run `ssh-keygen`
-    * There are several customization options. You should be fine with the default settings by pressing ENTER for each option, you can read more about the options here.
+    * There are several customization options. You should be fine with the default settings by pressing ENTER for each option, you can read more about the options [here](https://en.wikipedia.org/wiki/Ssh-keygen).
 * Print out the public key (do NOT touch the private key):
     * Assuming default settings, the public key is in `id_rsa.pub`, the private key is in `id_rsa`.
     * If you stored the keys elsewhere, same procedure still applies with that other location.
@@ -194,8 +197,7 @@ For example, once I have set up my SSH key, to clone my repo in a folder called 
 $ git clone git@git.ucsc.edu:cse13s/fall23/snde.git cse13s
 ```
 
-{: .highlight}
-Doesn’t matter that I have leaked to you my SSH url, your public key has not been added to my GitLab account! Try doing the above and it will fail.
+> Doesn’t matter that I have leaked to you my SSH url, your public key has not been added to my GitLab account! Try doing the above and it will fail.
 
 
 ### `.gitignore`
@@ -238,7 +240,8 @@ Now imagine a pedantic C programmer who does not like any other language. In an 
 ```
 
 
-{. .note} Mac users often find a settings folder/file called `.DS_Store` in their repos when they develop on Mac (developing on your VM will most likely not cause this problem), please be sure to filter it out in `.gitignore`.
+{: .note}
+Mac users often find a settings folder/file called `.DS_Store` in their repos when they develop on Mac (developing on your VM will most likely not cause this problem), please be sure to filter it out in `.gitignore`.
 
 
 ---
