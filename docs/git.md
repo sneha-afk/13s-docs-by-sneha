@@ -54,19 +54,66 @@ Previewing [Commands](#commands), the “`origin main`” (Note: the default bra
 
 ### Repository
 
+A **repository** (colloquially “repo”) is the crux of your project, containing files, commit history, and other key components of Git. A repository is easily identifiable by folders that contain a hidden `.git` folder. Do not manually mess with anything inside `.git` unless you know what you’re doing!
+
 ### Commit
+
+A **commit** is a snapshot of your repo at a point in time, think of saving state in a game or this very doc you are reading with its own history. Developers often commit after they implement a new feature or make substantial progress. Commits allow you to recover or revert to earlier versions of your work. **Please commit often**, especially when you have made a breakthrough on something you were stuck with.
+
+> My CSE13S repo had 138 commits, sometimes 3 within an hour!
+
+In their most simplest form, git commits are in a **linear chronological order**. If you commit changes to fileA at timeA, then fileB at timeB, and then finally fileC at timeC, does the commit at timeA contain information about the latest version of fileC? No! 
+
+> Since timeA < timeC, fileC either does not exist within the context of timeA, or timeA contains an older version of the file. timeC will have all of the information of timeA, plus any updates.
+
+<img src="assets/git-commit-order.svg" alt="diagram depicting a sequence of git commits"/>
 
 ### Hash
 
+Every commit has a 40-character commit **hash** associated with it. These are unique identifiers for every commit ever made 
+
+> A running joke in CS: if you can cheat a git hash, you’ll get your whole degree right then. 
+
+The short form of a hash is usually the first 8 characters, but you will **most likely be expected to turn in the entire hash**. This can be obtained on the GitLab site, or by copying from `git log` (see [Commands](#commands))
+
+|       |  |
+|------ |--|
+| <img src="assets/git-commit-example.png" alt="diagram depicting a sequence of git commits"/> | GitLab's interface in the "Commits" tab of the repo.<BR><BR>`83f4cb40` is the short-hand, the full commit hash is copied into my clipboard when I click the clipboard icon. |
+
+Referring to the diagram in [Commit](#commit), you will choose which point in history your repo will be graded on. **In most cases, this will be your most recent commit** (see the sidebar of a GitLab repo -> Code -> Commits), but in case it isn’t, you have the ability to choose by submitting the hash of any commit.
+
 ### Remote
+
+GitHub? GitLab? Bitbucket? These are common repository hosting sites, powered by the Git version control system. The online location of your repository is called the **remote**, as it is separate from your local repository. 
+
+Remotes are often named, such as “origin”, “remote.” The main remote for a repo (where you obtained its URL) is usually named `origin` automatically.
+
+The only part where you need an internet connection is to push onto the remote repository. That is, your local repository is local to your device and does not leave anywhere until you explicitly push it to a remote (which is not required by Git in any form!). Even if you are disconnected, Git allows you to continue working and committing, and push onto remote when you are able to. 
+
+The following diagram shows the relationship between the working directory (where you are currently coding in), the staging area (the preparation for a commit), the local repository (where your commits are), and the remote repository (the online location).
+
+<img src="assets/git-workflow-diagram.svg" alt="diagram depicting the git workflow"/>
 
 ### Branch
 
+While most of your school life will be working by yourself, on a single branch (usually called “main” or “master”), branches are a crucial part of collaboration. A **branch** can be thought of as a different parallel version of the repo.
+
+The main branch is often reserved for deployed, known-to-be functional code for customers/users, while the other branches are features in development that have yet to be pushed into production. It would be good practice to complete assignments on separate branches, then have a final “submission” by merging your branch into the main, but this is **not required** by any means. You are allowed to solely work on the main branch of your repo, and I recommend doing so if you are not familiar with git merging. 
+
+Say you are an employee tasked to work on a feature A. Instead of wrecking havoc during your dev process, you branch out from the current main branch, and work on your feature, until it is merged back onto main and users can now use A.
+
+|       |  |
+|------ |--|
+| <img src="assets/git-branch-example.png" alt="diagram depicting a sequence of git commits"/> | A peek into the branches of Microsoft’s (open-source!) [VSCode repository](https://github.com/microsoft/vscode).<BR><BR>Why do you think having separate branches for bug fixes, new features, etc. is crucial to separate away from production code that countless users are using at this moment?
+ |
+
 ### And there's more.
+
+A great dev would know the basics of merging, forks, pull requests, rebasing (shudders), and more. Do not stress, these are learned with time and patience, and are not required for the simple task of coding and submitting assignments. As with any tool however, I implore you to learn more about Git, as it separates a good dev from a great dev. And your friends will appreciate you fixing their daunting Git errors (many more true stories).
 
 ## Commands
 
-Here are some commands and some of the most common options
+Here are some commands and some of the most common options for them.
 
 Nearly all of these commands (except for `git clone` and global `git config` calls) requires you to currently be in a directory containing a repository. 
 
@@ -74,8 +121,8 @@ Nearly all of these commands (except for `git clone` and global `git config` cal
 
 **<>** indicates a **mandtory** argument, while **[]** indicates an optional argument.
 
-| Command   | Explanation                                       |
-|-----------|---------------------------------------------------|
+| Command                | Explanation                                       |
+|------------------------|---------------------------------------------------|
 | **`git clone`** `<url> [name for the resulting directory]`                  | Clone a remote repository into a local directory. |
 | **`git add`** `<file1> [file2] … [file_n]`<BR><BR>`git add -f .dotfilename` | Stage a file’s changes into the staging area to be committed in the future.<BR><BR>*This doesn’t mean “add” in the sense that there is also a “git delete”.*  This means to “stage the latest changes, including deletion, of a file.” If you need to delete a file from your repo, you should delete it locally, add that change, and push again.<BR><BR>Dot files (such as `.gitignore`) tend to get ignored by git, force adding it by using the `-f` flag.<BR><BR>NOTE: `git add .` adds ANY modified file into the staging area. I highly recommend **never** doing this, else risk committing something you didn’t want to. Use TAB to autocomplete file names on the command line.|
 | **`git restore`**<BR><BR>`git restore --staged <file>`	                  | Restores a file to the most up-to-date history for it in the commits.<BR><BR>Also used to remove files that were accidentally staged (WITHOUT reverting, just un-staging).|
@@ -104,8 +151,8 @@ git config --local user.name “Sammy Slug”
 
 Here’s some that you would greatly benefit from exploring, and you may have to use when you fall into issues with Git.
 
-| Command   | Explanation                                       |
-|-----------|---------------------------------------------------|
+| Command                | Explanation                                       |
+|------------------------|---------------------------------------------------|
 | **`git merge`**      | Attempt to merge the code of two divergent branches (or commits) into one.<BR><BR>Merge conflicts are a rite of passage. Learning how to deal with them is important. If you are diligent about pushing/pulling as required, you will hopefully not fall into a need to merge. |
 | **`git rebase`**     | Rebase your branch to settle history. |
 | **`git stash`**      |  A half-way between saving and committing.<BR><BR> Useful if you want to keep something, but have not committed to it (ha ha). |
@@ -119,7 +166,7 @@ Here’s some that you would greatly benefit from exploring, and you may have to
 
 ---
 
-[TS: Installation]: troubleshooting/#installation
+[TS: Installation]: troubleshooting.html/#installation
 
 [bash Page]: bash.html
 
