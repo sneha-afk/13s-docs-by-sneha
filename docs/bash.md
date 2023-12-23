@@ -175,6 +175,9 @@ rm -r step1
 ls -1
 ```
 
+{: .tip}
+Bash commands can be run in succession on one line using `&&`: `mkdir folder && cd folder`
+
 ### Utility commands
 
 There are many, many more, but these should give you an idea of the types of commands that are available for use. I have purposely not included examples or options, as I want to encourage your own experimentation and research.
@@ -190,6 +193,23 @@ There are many, many more, but these should give you an idea of the types of com
 | `grep`     | Search with pattern matching, can be done on files or even whole directories. |
 | `pwd`      | Print the current working directory’s path |
 | `wc`       | Count the bytes (characters), lines, and/or words in a file |
+
+### System maintenence
+
+The following are some commands you will find useful for maintaining your VM and managing your packages.[^2]
+
+{: .note}
+`apt` is the default package manager of Ubuntu (think the App Store for iOS).
+
+{: .important}
+**<>** indicates a **mandtory** argument, while **[]** indicates an optional argument.
+
+| Command    | Purpose      |
+| ---------- | ------------ |
+| `sudo apt-get update` | Update package references |
+| `sudo apt-get upgrade` | Upgrade current system packages to the latest versions pointed to |
+| `sudo apt-get install <name> [-y]` | Install a package [and say yes to any prompts] |
+| `sudo apt autoremove` | Remove unused dependencies |
 
 ---
 
@@ -307,3 +327,5 @@ I used single `[ ]`, which is technically correct but an older standard, it’s 
 
 ---
 [^1]: Bash tests from [Stack Overflow](https://askubuntu.com/a/558990)
+
+[^2]: [More on `apt` commands](https://phoenixnap.com/kb/apt-linux)

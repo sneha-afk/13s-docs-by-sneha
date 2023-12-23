@@ -18,23 +18,37 @@ Common issues plague the early stages of learning C. Usually, nothing about C it
 
 ## General
 
-### Installation
+### "`username` is not in the sudoers file"
 
-#### "`username` is not in the sudoers file"
-
-If you are having issues with installing, such as an error saying:
+Many operations in UNIX require super user (`sudo`) permissions. Without these permissions, you might see:
 ```
 <username> is not in the sudoers file. This incident will be reported
 ```
 
-Then run the following commands (Source: Stack Overflow):
+Run the following commands:[^2]
 ```bash
 $ su
 $ password: <password of your VM>
 $ usermod -aG sudo <username>
 ```
 
-Restart your VM, and try the installation again.
+Restart your VM, and try the command again.
+
+### E: Unable/Failed to fetch some archives
+
+`apt` is a package manager and relies on online archives that point to the source of these packages. You may run into this error when attempting to install via `sudo apt installl` or when upgrading packages with `sudo apt upgrade`:
+```
+Failed to fetch ...
+E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
+```
+
+You should update the package references via:
+```bash
+sudo apt-get update
+```
+
+{: .note}
+It's best to install using `sudo apt-get install <name>` as `apt-get` achieves a multitude of actions.[^3]
 
 ## Git
 
@@ -135,3 +149,7 @@ Compilation *warnings* are usually excused by the compiler and the executable mi
 ---
 
 [^1]: loose object fix from [Stack Overflow](https://stackoverflow.com/a/40098509)
+
+[^2]: sudoers file fix from [Stack Overflow](https://stackoverflow.com/a/47810801)
+
+[^3]: Explanation of `apt-get` from [Stack Overflow](https://askubuntu.com/a/540943)

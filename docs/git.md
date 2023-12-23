@@ -123,6 +123,7 @@ Nearly all of these commands (except for `git clone` and global `git config` cal
 
 > Need a refresher on how to navigate the command line? [Visit the page on `bash`][bash Page].
 
+{: .important}
 **<>** indicates a **mandtory** argument, while **[]** indicates an optional argument.
 
 | Command                | Explanation                                       |
