@@ -77,8 +77,7 @@ In the terminal:
 $ gcc -gdwarf-4 ... -o exec
 ```
 
-{: .note}
-Online you will see the -g flag being mentioned, which also accomplishes this, but there could be compatibility issues with the latest version of Ubuntu. Specifying the version with `-gdwarf-4` removes the headache.
+Online you will see the `-g` flag being mentioned, which also accomplishes this, but there could be compatibility issues with the latest version of Ubuntu. Specifying the version with `-gdwarf-4` removes the headache.
 
 {: .tip}
 With Vim, you can enter the command `:set number` to get line numbers. Better yet, save this (and other settings for Vim) within `~/.vimrc` to retain across different Vim sessions.
@@ -126,11 +125,10 @@ sandbox: sandbox.o
 
 clean:
     rm -rf *.o sandbox
-
 ```
 
 Let’s run `sandbox` right now with `valgrind`:
-```bash
+```
 $ make
 gcc -Wall -c sandbox.c
 gcc -Wall -o sandbox sandbox.o
@@ -349,7 +347,7 @@ free(a); // no problem since a = NULL
 
 ---
 
-[TS: Installation]: troubleshooting.html/#installation
+[TS: Installation]: troubleshooting.html
 
 [bash Page]: bash.html
 

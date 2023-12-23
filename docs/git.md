@@ -247,7 +247,7 @@ Mac users often find a settings folder/file called `.DS_Store` in their repos wh
 
 ---
 
-[TS: Installation]: troubleshooting.html/#installation
+[TS: Installation]: troubleshooting.html
 
 [bash Page]: bash.html
 
