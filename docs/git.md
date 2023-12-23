@@ -214,7 +214,7 @@ For any programming class, it’s generally not appreciated to leave IDE artifac
 The following is an example `.gitignore` for a typical Python project, in which I had some VSCode shenanigans, a virtual environment in a folder called `.venv`, and the potential for compiled Python code to appear. 
 
 {: .note}
-* means any sequence of matching characters. ! negates the ignoring.
+**`*`** means any sequence of matching characters. **`!`** negates the ignoring.
 
 ```
 # Contents of .gitignore
