@@ -44,8 +44,10 @@ You can (almost) use this out of the box after you change the names. Below is a 
 # Comments with a # outside of a target body
 
 # Variables
-CC = gcc
-CFLAGS = -Wall -Wextra -Wpedantic
+SHELL  := /bin/sh
+CC      = gcc
+CFLAGS  = -Wall
+LFLAGS  = -lm
 
 # Grabbing all the file names of type .c
 SOURCES = $(wildcard *.c)
@@ -64,26 +66,26 @@ all: target t2 ...
 # Targets are called in terminal by running "make target"
 # The -o flag names the output to the token after it
 target: dependency1 dep2 ...
-    $(CC) -o target prog.o
+	$(CC) -o target prog.o
 # On the terminal the above line is expanded by make into:
 # $ gcc -o prog prog.o
 
 # Example target for a program called foo made with foo.c, and bar.c
 # foo.o and bar.o are made with the %.o: %.c target
 foo: foo.o bar.o
-    $(CC) $(CFLAGS) foo.o bar.o -o foo
+	$(CC) $(CFLAGS) foo.o bar.o -o foo $(LFLAGS)
 
 # Dependencies can lead to files, or other targets that are also called by make
 dependency1: dep3 ...
-    bash command
+	bash command
 
 # HELPFUL! Any .o target will be matched to this, compiles the corresponding .c into its .o, use this! CFLAGS is a variable for any additional flags for compilation. May not be needed for this assignment but definitely in future courses.
 %.o: %.c
-    $(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -c $<
 
 # Common to have a clean target to remove anything created by your programs
 clean:
-    rm -rf *.o foo
+	rm -rf *.o foo
 ```
 
 ---
@@ -127,7 +129,7 @@ A `make` **rule** has a target, potential dependencies/prerequisites for the tar
 The typical syntax is:
 ```make
 target: dependencies
-    recipe
+	recipe
 ```
 
 {: .important}
@@ -167,15 +169,23 @@ If your target is not meant to be a resulting file or program, it is good practi
 
 ## Variables
 
-Variables can be referenced just like a `bash` script. These are later expanded in the recipes (and later in the terminal). Common ones include `CC` (C Compiler), `CFLAGS` (compiler flags), `EXEC` (the name of all programs being created) , `SRC` (source files, i.e C files), and `OBJ` (object files). You can use your own variables to substitute repeated segments in your Makefile and make them simpler.
+Variables can be referenced just like a `bash` script. These are later expanded in the recipes (and later in the terminal). Common ones include `SHELL` (link to which shell to use), `CC` (C Compiler), `CFLAGS` (compiler flags), `LFLAGS` (library flags), EXEC` (the name of all programs being created) , `SRC` (source files, i.e C files), and `OBJ` (object files). You can use your own variables to substitute repeated segments in your Makefile and make them simpler.
 
 ```make
-CC = gcc
-CFLAGS = -Wall
+SHELL  := /bin/sh
+CC      = gcc
+CFLAGS  = -Wall
+LFLAGS  = -lm
 
 foo: foo.o
-    $(CC) $(CFLAGS) -o foo foo.o
+	$(CC) $(CFLAGS) -o foo foo.o $(LFLAGS)
 ```
+
+{: .note}
+`:=` is used as "immediate" assignment, as in `make` will immediately assign `SHELL` to the system's symbolic link to its default shell (Ubuntu has `/bin/sh` point to `/bin/bash`). `=` means "lazy" assignment, as in the variable's value will not be expanded until it is later used. Read more about assignment operators at the [official documentation.](https://www.gnu.org/software/make/manual/html_node/Setting.html)
+
+{: .note}
+Notice how the library flags come after the rest of the compile command.
 
 When `make foo` is called, the recipe is expanded in the terminal:
 ```bash
@@ -189,7 +199,7 @@ gcc -Wall -o foo foo.o
 
 Here is a quick example of wanting to make a program called bar, which also needs a link to the math library, and at the end will be instructions on how to run it:
 ```make
-CC = gcc
+CC     = gcc
 CFLAGS = -Wall -Wextra -Wpedantic
 
 .PHONY = all clean
@@ -200,15 +210,15 @@ all: bar
 # Object -> Executable
 # -lm links to the math library!
 bar: bar.o
-    $(CC) $(CFLAGS) -o bar bar.o -lm
+	$(CC) $(CFLAGS) -o bar bar.o -lm
 
 # Source -> Object
 bar.o: bar.c
-    $(CC) $(CFLAGS) -c bar.c
+	$(CC) $(CFLAGS) -c bar.c
 
 # No executables (like bar) or objects!
 clean:
-    rm -f *.o bar
+	rm -f *.o bar
 ```
 
 This should be stored under the file name of `Makefile` (no extension) in the same directory as `bar.c`.
@@ -222,7 +232,7 @@ $ ./bar
 Hello World!
 ```
 
-What if I changed the code in my bar.c? I will have to recompile the program! But to be sure I am not compiling with anything old, I will use my cleaning utility target.
+What if I changed the code in my bar.c? I will have to recompile the program! But to be sure I am not compiling with any older object files, I will use my cleaning utility target.
 ```bash
 $ make clean
 rm -f *.o bar
@@ -251,11 +261,12 @@ The following are example Makefiles that also utilize [Auto-variables](#auto-var
 ### Single program
 
 Note that this example Makefile also links the math library in the executable.
+
 {: .important}
 Only one of the source files can contain a `main()`, as an executable can be built from multiple object files, but only one of those object files can contain the execution starting point!
 
 ```make
-CC = gcc
+CC     = gcc
 CFLAGS = -Wall -Wextra -Wpedantic
 LFLAGS = -lm
 
@@ -269,13 +280,13 @@ EXEC = foo
 all: $(EXEC)
 
 $(EXEC): $(OBJ)
-    $(CC) $(CFLAGS) $(LFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@ $(LFLAGS)
 
 %.o: %.c
-    $(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -c $<
 
 clean:
-    rm -rf *.o $(EXEC)
+	rm -rf *.o $(EXEC)
 ```
 
 ---
@@ -287,7 +298,7 @@ Auto variables are helpful shortcuts to refer to parts of the Makefile, similar 
 My personal favorite usage of auto-variables comes in the form:
 ```make
 %.o: %.c
-    $(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -c $<
 ```
 
 This compiles any .c in my directory into its object file, with the specified compiler and compiler flags (unless specified, don’t worry about this, it is optional), and names it after the first dependency (which is the .c in question). Use this everywhere!

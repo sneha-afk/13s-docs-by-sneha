@@ -135,6 +135,19 @@ find .git/objects/ -size 0 -exec rm -f {} \;
 git fetch origin
 ```
 
+### fatal: update_ref failed for ref 'ORIG_HEAD'
+
+Upon every push/pull from a remote called `origin`, a file called `ORIGIN_HEAD` is updated. If this file is corrupted, you may get a message similiar to:
+```
+fatal: update_ref failed for ref 'ORIG_HEAD': cannot lock ref 'ORIG_HEAD': unable to resolve reference 'ORIG_HEAD': reference broken
+```
+
+To resolve this, you can remove the faulty file and then try your `git push` or `git pull` again.[^4]
+```bash
+# cd to root of your repo
+rm .git/ORIGIN_HEAD
+```
+
 ---
 
 ## `make`
@@ -152,4 +165,6 @@ Compilation *warnings* are usually excused by the compiler and the executable mi
 
 [^2]: sudoers file fix from [Stack Overflow](https://stackoverflow.com/a/47810801)
 
-[^3]: Explanation of `apt-get` from [Stack Overflow](https://askubuntu.com/a/540943)
+[^3]: Explanation of `apt-get` from [Ask Ubuntu](https://askubuntu.com/a/540943)
+
+[^4]: `ORIGIN_head` fix from [Stack Overflow](https://stackoverflow.com/a/14159830)
