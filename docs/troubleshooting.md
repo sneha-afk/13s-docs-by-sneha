@@ -37,7 +37,7 @@ Restart your VM, and try the command again.
 ### E: Unable/Failed to fetch some archives
 
 `apt` is a package manager and relies on online archives that point to the source of these packages. You may run into this error when attempting to install via `sudo apt installl` or when upgrading packages with `sudo apt upgrade`:
-```
+```bash
 Failed to fetch ...
 E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
 ```
@@ -68,6 +68,10 @@ Omit --global to set the identity only to this repository.
 ```
 
 Git commits must be signed with a name and email, this error states that it cannot find a name or email configured to sign a commit.
+
+{: .note}
+Notice how this message includes a solution *within* its text, just like many Git errors.
+
 * Set your name and email. Do as it said, i.e:
 
 ```bash
@@ -107,9 +111,6 @@ hint: or --ff-only on the command line to override the configured default per
 hint: invocation.
 fatal: Need to specify how to reconcile divergent branches
 ```
-
-{: .note}
-Notice how this message includes a solution *within* its text, just like many Git errors.
 
 The error is saying there are divergent branches, or inconsistent branch history, and Git needs to know how to deal with them upon a pull. The easiest method is to merge the two branches into one, so enter:
 ```bash
@@ -156,7 +157,7 @@ rm .git/ORIGIN_HEAD
 
 `make` stops when the compiler finds a compilation error, so the final executable cannot be made. Fix all compilation errors and try once more.
 
-{: .note }
+{: .important}
 Compilation *warnings* are usually excused by the compiler and the executable might be made. As good practice, the goal is the most quiet compilation with no warnings either, so fix warnings as well.
 
 ---

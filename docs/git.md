@@ -101,7 +101,10 @@ The following diagram shows the relationship between the working directory (wher
 
 While most of your school life will be working by yourself, on a single branch (usually called “main” or “master”), branches are a crucial part of collaboration. A **branch** can be thought of as a different parallel version of the repo.
 
-The main branch is often reserved for deployed, known-to-be functional code for customers/users, while the other branches are features in development that have yet to be pushed into production. It would be good practice to complete assignments on separate branches, then have a final “submission” by merging your branch into the main, but this is **not required** by any means. You are allowed to solely work on the main branch of your repo, and I recommend doing so if you are not familiar with git merging. 
+The main branch is often reserved for deployed, known-to-be functional code for customers/users, while the other branches are features in development that have yet to be pushed into production.
+
+{: .tip}
+It would be good practice to complete assignments on separate branches, then have a final “submission” by merging your branch into the main, but this is **not required** by any means. You are allowed to solely work on the main branch of your repo, and I recommend doing so if you are not familiar with git merging. 
 
 Say you are an employee tasked to work on a feature A. Instead of wrecking havoc during your dev process, you branch out from the current main branch, and work on your feature, until it is merged back onto main and users can now use A.
 
@@ -171,7 +174,7 @@ Here’s some that you would greatly benefit from exploring, and you may have to
 SSH keys work by having a public and private key to assert the identity of a client, no password required. The public key can be known by anyone, but the private key is the missing half that authorizes any transaction. This is much more secure than using the standard HTTPS login credentials that can easily be intercepted as SSH keys are unique and should be as private as can be. Repos can often be cloned through SSH and I recommend you do so.
 
 {: .important}
-NEVER post your private key ANYWHERE. You never have a reason to touch it.
+NEVER post your private key ANYWHERE.
 
 The quickest procedure for doing so is:
 * Run `ssh-keygen`
@@ -207,7 +210,8 @@ A `.gitignore` file does just that, it tells the Git system what to ignore when 
 
 The `.gitignore` file is to be at the top level of your repo (i.e, in the same visible folder as the `.git` folder) and should generally always exist no matter the project. Some repo hosting sites provide template `.gitignore`’s when you specify what the primary language of the project will be!
 
-{. .note} If `git add` is not detecting `.gitignore`, use `git add -f .gitignore` to force the staging.
+{: .note}
+If `git add` is not detecting `.gitignore`, use `git add -f .gitignore` to force the staging.
 
 For any programming class, it’s generally not appreciated to leave IDE artifacts (`.vscode`, `.idea`, `.metadata`, etc.) as your personal development settings have nothing to do with the code (and may even contain some secrets). For a C class, you should make sure to **never commit object files (extension `.o`) or executables** (these can be harder to track on UNIX where `.exe` is not needed to designate executable files, be aware of what is staged using git status!).
 
@@ -241,9 +245,8 @@ Now imagine a pedantic C programmer who does not like any other language. In an 
 ```
 
 
-{: .note}
+{: .important}
 Mac users often find a settings folder/file called `.DS_Store` in their repos when they develop on Mac (developing on your VM will most likely not cause this problem), please be sure to filter it out in `.gitignore`.
-
 
 ---
 

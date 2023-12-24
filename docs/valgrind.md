@@ -118,13 +118,13 @@ CFLAGS = -Wall
 all: sandbox
 
 sandbox: sandbox.o
-    $(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 
 %.o: %.c
-    $(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -c $<
 
 clean:
-    rm -rf *.o sandbox
+	rm -rf *.o sandbox
 ```
 
 Let’s run `sandbox` right now with `valgrind`:
@@ -325,7 +325,8 @@ printf("f = %d\n", f);
 
 This occurs when you try to `free()` a block of memory that has already been freed previously. 
 
-It is encouraged to set freed pointers to NULL because free(NULL); will not trigger this issue and has no ill effects.[^1]
+{: .tip}
+I encourage you to set freed pointers to NULL because free(NULL); will not trigger this issue and has no ill effects.[^1]
 
 **Example 1**
 ```c

@@ -46,42 +46,43 @@ You can (almost) use this out of the box after you change the names. Below is a 
 # Comments with a # outside of a target body
 
 # Variables
-SHELL  := /bin/sh
-CC      = gcc
-CFLAGS  = -Wall
-LFLAGS  = -lm
+SHELL  := /bin/sh   # Shell to use for targets
+CC      = gcc       # Compiler to use
+CFLAGS  = -Wall     # Compiler flags
+LFLAGS  = -lm       # Library flags
 
-# Grabbing all the file names of type .c
+# Grabbing all the source file names, type .c
+# NOTE: this is NOT a variable of the files itself, just a string of their names
 SOURCES = $(wildcard *.c)
 
-# Replacing all the file names to be of type .o
-# NOTE: this is NOT a variable of the files itself, just their names
+# Substituting the type to be .o of the same files
 OBJECTS = $(subst .c,.o,$(SOURCES))
 
-# This is used to specify that PHONY targets are special targets and are not associated with any particular files
+# PHONY targets are special targets that do not create files
 .PHONY = all utility1 utility2 ...
 
-# When make is called with just "make", it defaults to "make all"
-# It's good practice to specify the all target for this reason
+# Invoking just "make" defaults to "make all"
+# It's good practice to specify "all" for this reason
 all: target t2 ...
 
-# Targets are called in terminal by running "make target"
+# Targets are invoked by running "make target"
 # The -o flag names the output to the token after it
 target: dependency1 dep2 ...
 	$(CC) -o target prog.o
-# On the terminal the above line is expanded by make into:
+# On the terminal the above line is expanded to:
 # $ gcc -o prog prog.o
 
-# Example target for a program called foo made with foo.c, and bar.c
+# Dependencies can lead to files or other targets
+dependency1: dep3 ...
+	# bash command
+
+# Example target for a program called foo made with foo.c and bar.c
 # foo.o and bar.o are made with the %.o: %.c target
 foo: foo.o bar.o
-	$(CC) $(CFLAGS) foo.o bar.o -o foo $(LFLAGS)
+	$(CC) $(CFLAGS) -o foo foo.o bar.o $(LFLAGS)
 
-# Dependencies can lead to files, or other targets that are also called by make
-dependency1: dep3 ...
-	bash command
-
-# HELPFUL! Any .o target will be matched to this, compiles the corresponding .c into its .o, use this! CFLAGS is a variable for any additional flags for compilation. May not be needed for this assignment but definitely in future courses.
+# HELPFUL! Any call to a .o target will be matched here
+# Compiles the corresponding .c into its .o, use this! 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $<
 
@@ -121,6 +122,15 @@ In this example, the main program was coded in `prog.c`, but required code that 
 
 Defining the build process once for these files in a Makefile gives greater reusability and convenience, in addition to helping with complex compilations like the previous example. By providing a Makefile, you are specifying the exact compilation your program needs, and anyone else (aka, the graders!) can compile your program the same exact way you did.
 
+{: .note}
+> Most compilers allow you to skip the object file creation stage like below, but it’s beneficial to separate this stage in cases where you are managing several dependencies towards an executable. 
+> ```bash
+> $ gcc file1.c file2.c file3.c -o output
+> ```
+> When you separate the object file creation, you will see compilation warnings and errors specific to a file much more clearly than when you use the shortcut.
+>
+> Sounds like a lot of work? Use a `Makefile`!
+
 ---
 
 ## Terms
@@ -151,12 +161,7 @@ If anything goes wrong during the process of making the target, make will quit a
 #### Dependencies
 A typical C file to program process is: take your code (`.c`), make an object file from it (`.o`), and then assemble into an executable (`.exe`, but this ending is not shown on UNIX). The `.o` depends on its corresponding `.c`, and the executable depends on the `.o` (or multiple).
 
-{: .note}
-> Most compilers allow you to skip the object file creation stage (see below), but it’s beneficial to separate this stage in cases where you are managing several dependencies towards an executable. 
-> ```bash
-> $ gcc file1.c file2.c file3.c -o output
-> ```
-> When you separate the object file creation, you will see compilation warnings and errors specific to a file much more clearly than when you use the shortcut. It is highly encouraged to have a target that compiles object files before assembling them together into an executable.
+It is highly encouraged to have a target that compiles object files before assembling them together into an executable, see the section about [auto-variables](#auto-variables) for an easy one.
 
 {: .important}
 The linking of libraries is done during the object to executable phase (technically, after assembling). For example, see how the math library `-lm` is linked in the [short example.](#single-program)
@@ -164,14 +169,29 @@ The linking of libraries is done during the object to executable phase (technica
 #### Recipe
 A recipe is simply a bash command that tell make how to build the target. This is where you put in the same commands that you were doing manually.
 
+{: .note}
+Not all targets need to have recipes, such as the special `all` target that simply triggers calls to its dependencies.
+
 ### `.PHONY`
-If your target is not meant to be a resulting file or program, it is good practice to tell `make` this. Common ones include `clean`, `all`, `format` which are usually utility targets.
+If your target is not meant to be a resulting file or program, it is good practice to tell `make` this using `.PHONY`.
+
+Common ones include `clean`, `all`, `format` which are usually utility targets.
+
+```make
+# No file called "all" or "clean" will be made
+.PHONY = all clean
+
+all: exe1 exe2
+
+clean:
+	rm -rf *.o exe1 exe2
+```
 
 ---
 
 ## Variables
 
-Variables can be referenced just like a `bash` script. These are later expanded in the recipes (and later in the terminal). Common ones include `SHELL` (link to which shell to use), `CC` (C Compiler), `CFLAGS` (compiler flags), `LFLAGS` (library flags), EXEC` (the name of all programs being created) , `SRC` (source files, i.e C files), and `OBJ` (object files). You can use your own variables to substitute repeated segments in your Makefile and make them simpler.
+Variables can be referenced just like a `bash` script. These are later expanded in the recipes (and later in the terminal). Common ones include `SHELL` (link to which shell to use), `CC` (C Compiler), `CFLAGS` (compiler flags), `LFLAGS` (library flags), `EXEC` (the name of all programs being created) , `SRC` (source files, i.e C files), and `OBJ` (object files). You can use your own variables to substitute repeated segments in your Makefile and make them simpler.
 
 ```make
 SHELL  := /bin/sh
@@ -183,7 +203,7 @@ foo: foo.o
 ```
 
 {: .note}
-`:=` is used as "immediate" assignment, as in `make` will immediately assign `SHELL` to the system's symbolic link to its default shell (Ubuntu has `/bin/sh` point to `/bin/bash`). `=` means "lazy" assignment, as in the variable's value will not be expanded until it is later used. Read more about assignment operators at the [official documentation.](https://www.gnu.org/software/make/manual/html_node/Setting.html)
+`:=` is used as "immediate" assignment, as in `make` will immediately assign `SHELL` to the system's symbolic link to its default shell (Ubuntu has `/bin/sh` point to `/bin/bash`). `=` means "lazy" assignment, as in the variable's value will not be expanded until it is later used.[^1]
 
 {: .note}
 The variables don't have to be lined up like they are in this example, but it's plesant to look at.
@@ -257,28 +277,28 @@ $ make clean && make bar && ./bar
 
 ## Examples
 
-The following are example Makefiles that also utilize [Auto-variables](#auto-variables) to mitigate typo errors and be re-usable! While you don’t need to know an exceptional amount of Makefile information, it helps in conceptualizing the compilation process.
+While you don’t need to know an exceptional amount of information about `make`, it helps in conceptualizing the compilation process.
+
+The following are example Makefiles that also utilize auto-variables to mitigate typo errors and be re-usable!
 
 ### Single program
 
-{: .note}
 This example Makefile also links the math library in the executable. Notice how the library flags come after the rest of the compile command.
 
 {: .important}
-Only one of the source files can contain a `main()`, as an executable can be built from multiple object files, but only one of those object files can contain the execution starting point!
+When assembling an executable with multiple source files, only one of them can contain a `main()`.
 
 ```make
-CC     = gcc
-CFLAGS = -Wall -Wextra -Wpedantic
-LFLAGS = -lm
+CC      = gcc
+CFLAGS  = -Wall -Wextra -Wpedantic
+LFLAGS  = -lm
 
 # Get the name of all source files and their corresponding object files
-SRC = $(wildcard *.c)
-OBJ = $(subst .c,.o,$(SRC))
+SRC   = $(wildcard *.c)
+OBJ   = $(subst .c,.o,$(SRC))
+EXEC  = foo
 
-EXEC = foo
-
-.PHONY = all clean
+.PHONY  = all clean
 
 all: $(EXEC)
 
@@ -299,19 +319,18 @@ clean:
 The last Makefile assumed the creation of one executable that takes in all objects. What if you have multiple programs to make, each with a different set of dependencies. Use variables to make this easier to manage. Note that I still keep the `all` target (`make`’s default) to make all the executables.
 
 ```make
-CC     = gcc
-CFLAGS = -Wall -Wextra -Wpedantic
+CC       = gcc
+CFLAGS   = -Wall -Wextra -Wpedantic
 
-# Not helpful in this case since the two programs use separate files :(
-# SRC = $(wildcard *.c)
-# OBJ = $(subst .c,.o,$(SRC))
+# Not helpful, the two programs use separate files :(
+# SRC    = $(wildcard *.c)
+# OBJ    = $(subst .c,.o,$(SRC))
 
-FOO_OBJ = foo.o fileA.o fileB.o
-BAR_OBJ = bar.o fileC.o fileD.o
+EXEC     = foo bar
+FOO_OBJ  = foo.o fileA.o fileB.o
+BAR_OBJ  = bar.o fileC.o fileD.o
 
-EXEC = foo bar
-
-.PHONY = all clean
+.PHONY   = all clean
 
 all: $(EXEC)
 
@@ -330,7 +349,7 @@ clean:
 ```
 
 What? Those two programs have the exact same recipes? Not so, when the variables are expanded onto terminal, those two targets are executed differently:
-```
+```bash
 $ make
 # "make" = "make all" -> all is specified to run foo and bar
 # First need to generate those object file dependencies
@@ -356,15 +375,25 @@ rm -rf *.o foo bar
 
 ## Auto-variables
 
-Auto variables are helpful shortcuts to refer to parts of the Makefile, similar to wildcards in bash scripts. There are tons of them, read about them in the [official documentation!](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html)
+Auto variables are helpful shortcuts to refer to parts of the Makefile, similar to wildcards in bash scripts. There are tons of them that can simplify your file.[^2]
 
 My personal favorite usage of auto-variables comes in the form:
 ```make
 %.o: %.c
 	$(CC) $(CFLAGS) -c $<
 ```
+* `$<` - name of the first dependency
 
 This compiles any .c in my directory into its object file, with the specified compiler and compiler flags (unless specified, don’t worry about this, it is optional), and names it after the first dependency (which is the .c in question). Use this everywhere!
+
+To shortcut an executable's target:
+```make
+prog: $(OBJ)
+	$(CC) $(CFLAGS) $^ -o $@
+```
+
+* `$@` - name of the target
+* `$^` - all of the dependencies
 
 ---
 
@@ -373,5 +402,9 @@ This compiles any .c in my directory into its object file, with the specified co
 `make` and `Makefile`s are somewhat of an art, and if you can generalize these well enough, you will only have to make minor customizations from your template for the rest of your journey in programming in C.
 
 ---
+
+[^1]: [Documentation](https://www.gnu.org/software/make/manual/html_node/Setting.html) about assignment operators
+
+[^2]: [Documentation](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html) about auto-variables
 
 [TS: Installation]: troubleshooting.html
