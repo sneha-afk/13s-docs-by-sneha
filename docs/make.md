@@ -5,7 +5,7 @@ nav_order: 5
 has_toc: true
 ---
 
-# `make` and `Makefile`s
+# `make`
 {: .no_toc}
 
 ## Table of contents
@@ -18,7 +18,9 @@ has_toc: true
 
 ## Intro
 
-`make` is a utility to automate the compilation process of your C programs. Instead of having to manually compile your programs, `make` can handle this and give you a simple interface for handling compilation.
+`make` is a utility to automate the compilation process of your programs. Instead of having to manually compile your programs, `make` can handle this and give you a simple interface for handling compilation.
+
+`make` is not exclusive to C, they can be used in any situation where you want to keep some `bash` code to reuse.
 
 ### Further resources
 * Official `make` [documentation](https://www.gnu.org/software/make/manual/make.html)
@@ -175,17 +177,16 @@ Variables can be referenced just like a `bash` script. These are later expanded 
 SHELL  := /bin/sh
 CC      = gcc
 CFLAGS  = -Wall
-LFLAGS  = -lm
 
 foo: foo.o
-	$(CC) $(CFLAGS) -o foo foo.o $(LFLAGS)
+	$(CC) $(CFLAGS) -o foo foo.o
 ```
 
 {: .note}
 `:=` is used as "immediate" assignment, as in `make` will immediately assign `SHELL` to the system's symbolic link to its default shell (Ubuntu has `/bin/sh` point to `/bin/bash`). `=` means "lazy" assignment, as in the variable's value will not be expanded until it is later used. Read more about assignment operators at the [official documentation.](https://www.gnu.org/software/make/manual/html_node/Setting.html)
 
 {: .note}
-Notice how the library flags come after the rest of the compile command.
+The variables don't have to be lined up like they are in this example, but it's plesant to look at.
 
 When `make foo` is called, the recipe is expanded in the terminal:
 ```bash
@@ -260,7 +261,8 @@ The following are example Makefiles that also utilize [Auto-variables](#auto-var
 
 ### Single program
 
-Note that this example Makefile also links the math library in the executable.
+{: .note}
+This example Makefile also links the math library in the executable. Notice how the library flags come after the rest of the compile command.
 
 {: .important}
 Only one of the source files can contain a `main()`, as an executable can be built from multiple object files, but only one of those object files can contain the execution starting point!
@@ -270,6 +272,7 @@ CC     = gcc
 CFLAGS = -Wall -Wextra -Wpedantic
 LFLAGS = -lm
 
+# Get the name of all source files and their corresponding object files
 SRC = $(wildcard *.c)
 OBJ = $(subst .c,.o,$(SRC))
 
@@ -279,14 +282,74 @@ EXEC = foo
 
 all: $(EXEC)
 
+# Compile all object files and link libraries to make an executable
 $(EXEC): $(OBJ)
 	$(CC) $(CFLAGS) $^ -o $@ $(LFLAGS)
+
+# Compile any .c into its corresponding .o
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+
+clean:
+	rm -rf *.o $(EXEC)
+```
+
+### Multiple programs
+
+The last Makefile assumed the creation of one executable that takes in all objects. What if you have multiple programs to make, each with a different set of dependencies. Use variables to make this easier to manage. Note that I still keep the `all` target (`make`’s default) to make all the executables.
+
+```make
+CC     = gcc
+CFLAGS = -Wall -Wextra -Wpedantic
+
+# Not helpful in this case since the two programs use separate files :(
+# SRC = $(wildcard *.c)
+# OBJ = $(subst .c,.o,$(SRC))
+
+FOO_OBJ = foo.o fileA.o fileB.o
+BAR_OBJ = bar.o fileC.o fileD.o
+
+EXEC = foo bar
+
+.PHONY = all clean
+
+all: $(EXEC)
+
+# Specifying exactly what foo needs
+foo: $(FOO_OBJ)
+	$(CC) $(CFLAGS) $^ -o $@
+
+bar: $(BAR_OBJ)
+	$(CC) $(CFLAGS) $^ -o $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $<
 
 clean:
 	rm -rf *.o $(EXEC)
+```
+
+What? Those two programs have the exact same recipes? Not so, when the variables are expanded onto terminal, those two targets are executed differently:
+```
+$ make
+# "make" = "make all" -> all is specified to run foo and bar
+# First need to generate those object file dependencies
+gcc -Wall -Wextra -Wpedantic -c foo.c
+gcc -Wall -Wextra -Wpedantic -c fileA.c
+gcc -Wall -Wextra -Wpedantic -c fileB.c
+
+# Now assemble the executable
+gcc -Wall -Wextra -Wpedantic foo.o fileA.o fileB.o -o foo
+
+# Done with foo, repeat with bar
+gcc -Wall -Wextra -Wpedantic -c bar.c
+gcc -Wall -Wextra -Wpedantic -c fileC.c
+gcc -Wall -Wextra -Wpedantic -c fileD.c
+gcc -Wall -Wextra -Wpedantic bar.o fileC.o fileD.o -o bar
+
+# After I'm done with the executables, clean up
+$ make clean
+rm -rf *.o foo bar
 ```
 
 ---
@@ -307,7 +370,7 @@ This compiles any .c in my directory into its object file, with the specified co
 
 ## Conclusion
 
-make and Makefiles are somewhat of an art, and if you can generalize these well enough, you will only have to make minor customizations from your template for the rest of your journey in programming in C.
+`make` and `Makefile`s are somewhat of an art, and if you can generalize these well enough, you will only have to make minor customizations from your template for the rest of your journey in programming in C.
 
 ---
 
