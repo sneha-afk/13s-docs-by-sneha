@@ -24,6 +24,10 @@ Git is a version control system, similar to labeling your essay drafts “essay�
 
 I have used Git to back up and submit my school work, work on open-source projects, and collaborate with others seamlessly. You *must* learn the basics of Git.
 
+### Further resources
+* [Official `git` documentation](https://git-scm.com/doc)
+* [Git Immersion](https://gitimmersion.com/), a very helpful tutorial
+* [Git glossary](https://www.atlassian.com/git/glossary#commands) by Atlassian (BitBucket)
 
 ### Prereqs
 
@@ -132,7 +136,7 @@ Nearly all of these commands (except for `git clone` and global `git config` cal
 | Command                | Explanation                                       |
 |------------------------|---------------------------------------------------|
 | **`git clone`** `<url> [name for the resulting directory]`                  | Clone a remote repository into a local directory. |
-| **`git add`** `<file1> [file2] … [file_n]`<BR><BR>`git add -f .dotfilename` | Stage a file’s changes into the staging area to be committed in the future.<BR><BR>*This doesn’t mean “add” in the sense that there is also a “git delete”.*  This means to “stage the latest changes, including deletion, of a file.” If you need to delete a file from your repo, you should delete it locally, add that change, and push again.<BR><BR>Dot files (such as `.gitignore`) tend to get ignored by git, force adding it by using the `-f` flag.<BR><BR>NOTE: `git add .` adds ANY modified file into the staging area. I highly recommend **never** doing this, else risk committing something you didn’t want to. Use TAB to autocomplete file names on the command line.|
+| **`git add`** `<file1> [file2] … [file_n]`<BR><BR>`git add -f .dotfilename` | Stage a file’s changes into the staging area to be committed in the future.<BR><BR>*This doesn’t mean “add” in the sense that there is also a “git delete”.*  This means to “stage the latest changes, including deletion, of a file.” If you need to delete a file from your repo, you should delete it locally, add that change, and push again.<BR><BR>Dot files (such as `.gitignore`) tend to get ignored by git, force adding it by using the `-f` flag.<BR><BR>NOTE: `git add .` stages any file in the current directory and `git add -A` stages ALL changes in the repository.[^1] I highly recommend **never** doing these actions, else risk committing something you didn’t want to. Use TAB to autocomplete file names on the command line.|
 | **`git restore`**<BR><BR>`git restore --staged <file>`	                  | Restores a file to the most up-to-date history for it in the commits.<BR><BR>Also used to remove files that were accidentally staged (WITHOUT reverting, just un-staging).|
 | **`git commit`**<BR><BR>`git commit -m “string msg”`                        | Commit files that are in the staging area with a message. You almost always have to specify the -m and commit message.<BR><BR>A commit goes into your local repository, it is not yet to the remote.|
 | **`git push`** `[remote] [branch]`       | Push commits that are on your local repository onto the online repository. **Local -> Remote.**<BR><BR>As mentioned earlier, I recommend always specifying the remote and branch names, such as “`git push origin main`”, to indicate I am pushing onto the branch called `main` of the remote called `origin`. |
@@ -181,7 +185,7 @@ The quickest procedure for doing so is:
     * There are several customization options. You should be fine with the default settings by pressing ENTER for each option, you can read more about the options [here](https://en.wikipedia.org/wiki/Ssh-keygen).
 * Print out the public key (do NOT touch the private key):
     * Assuming default settings, the public key is in `id_rsa.pub`, the private key is in `id_rsa`.
-    * If you stored the keys elsewhere, same procedure still applies with that other location.
+    * If you stored the keys elsewhere, same procedure still applies with that other location. *Don't* store keys inside of a repo.
 
 ```bash
 cat ~/.ssh/id_rsa.pub
@@ -251,6 +255,6 @@ Mac users often find a settings folder/file called `.DS_Store` in their repos wh
 ---
 
 [TS: Installation]: troubleshooting.html
-
 [bash Page]: bash.html
 
+[^1]: `git add` options from [Stack Overflow](https://stackoverflow.com/a/572660)
