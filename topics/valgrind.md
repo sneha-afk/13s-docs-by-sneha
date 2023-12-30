@@ -20,7 +20,7 @@ has_toc: true
 
 **`valgrind`** is a utility to debug memory issues within programs. What good is a bucket of water if it leaks at the bottom? The same goes for your programs.
 
-### Resources
+### Further resources
 * Official `valgrind` [quick start guide](https://valgrind.org/docs/manual/quick-start.html)
 * [Comprehensive guide](https://web.stanford.edu/class/archive/cs/cs107/cs107.1174/guide_valgrind.html) @ Stanford
 
@@ -326,7 +326,7 @@ printf("f = %d\n", f);
 This occurs when you try to `free()` a block of memory that has already been freed previously. 
 
 {: .tip}
-I encourage you to set freed pointers to NULL because free(NULL); will not trigger this issue and has no ill effects.[^1]
+I encourage you to set freed pointers to NULL because `free(NULL);` will not trigger this issue and has no ill effects.[^1]
 
 **Example 1**
 ```c

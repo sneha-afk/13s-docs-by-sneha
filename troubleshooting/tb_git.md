@@ -1,14 +1,13 @@
 ---
-title: Troubleshooting
+title: "Troubleshooting: Git"
+parent: Troubleshooting
 layout: default
 nav_order: 2
 has_toc: true
 ---
 
-# Troubleshooting
+# Troubleshooting `git`
 {: .no_toc }
-
-Common issues plague the early stages of learning C. Usually, nothing about C itself. Here are common solutions with sources when needed.
 
 ## Table of contents
 {: .no_toc .text-delta }
@@ -16,43 +15,7 @@ Common issues plague the early stages of learning C. Usually, nothing about C it
 1. TOC
 {:toc}
 
-## General
-
-### "`username` is not in the sudoers file"
-
-Many operations in UNIX require super user (`sudo`) permissions. Without these permissions, you might see:
-```
-<username> is not in the sudoers file. This incident will be reported
-```
-
-Run the following commands:[^2]
-```bash
-$ su
-$ password: <password of your VM>
-$ usermod -aG sudo <username>
-```
-
-Restart your VM, and try the command again.
-
-### E: Unable/Failed to fetch some archives
-
-`apt` is a package manager and relies on online archives that point to the source of these packages. You may run into this error when attempting to install via `sudo apt installl` or when upgrading packages with `sudo apt upgrade`:
-```bash
-Failed to fetch ...
-E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
-```
-
-You should update the package references via:
-```bash
-sudo apt-get update
-```
-
-{: .note}
-It's best to install using `sudo apt-get install <name>` as `apt-get` achieves a multitude of actions.[^3]
-
-## Git
-
-### Author identity unknown
+## Author identity unknown
 
 ```
 Author identity unknown
@@ -93,7 +56,7 @@ $ git config --local user.name “Sammy Slug”
 {: .note}
 In most terminal operations, quotation marks are optional with single-tokens, but is necessary when tokens are space separated like a `"FirstName Last Name"`
 
-### fatal: Need to specify how to reconcile divergent branches
+## fatal: Need to specify how to reconcile divergent branches
 
 Upon a `git pull`, you may get:
 ```
@@ -118,7 +81,7 @@ git config pull.rebase false
 git pull # try the pull again
 ```
 
-### fatal: loose object [ ... ] is corrupt
+## fatal: loose object [ ... ] is corrupt
 
 Upon any Git command, you might get some error like:
 ```
@@ -136,14 +99,14 @@ find .git/objects/ -size 0 -exec rm -f {} \;
 git fetch origin
 ```
 
-### fatal: update_ref failed for ref 'ORIG_HEAD'
+## fatal: update_ref failed for ref 'ORIG_HEAD'
 
 Upon every push/pull from a remote called `origin`, a file called `ORIGIN_HEAD` is updated. If this file is corrupted, you may get a message similiar to:
 ```
 fatal: update_ref failed for ref 'ORIG_HEAD': cannot lock ref 'ORIG_HEAD': unable to resolve reference 'ORIG_HEAD': reference broken
 ```
 
-To resolve this, you can remove the faulty file and then try your `git push` or `git pull` again.[^4]
+To resolve this, you can remove the faulty file and then try your `git push` or `git pull` again.[^2]
 ```bash
 # cd to root of your repo
 rm .git/ORIGIN_HEAD
@@ -151,21 +114,6 @@ rm .git/ORIGIN_HEAD
 
 ---
 
-## `make`
-
-### "Where is my executable!"
-
-`make` stops when the compiler finds a compilation error, so the final executable cannot be made. Fix all compilation errors and try once more.
-
-{: .important}
-Compilation *warnings* are usually excused by the compiler and the executable might be made. As good practice, the goal is the most quiet compilation with no warnings either, so fix warnings as well.
-
----
-
 [^1]: loose object fix from [Stack Overflow](https://stackoverflow.com/a/40098509)
 
-[^2]: sudoers file fix from [Stack Overflow](https://stackoverflow.com/a/47810801)
-
-[^3]: Explanation of `apt-get` from [Ask Ubuntu](https://askubuntu.com/a/540943)
-
-[^4]: `ORIGIN_head` fix from [Stack Overflow](https://stackoverflow.com/a/14159830)
+[^2]: `ORIGIN_head` fix from [Stack Overflow](https://stackoverflow.com/a/14159830)
