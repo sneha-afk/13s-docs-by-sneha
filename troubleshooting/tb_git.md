@@ -35,14 +35,14 @@ Git commits must be signed with a name and email, this error states that it cann
 {: .note}
 Notice how this message includes a solution *within* its text, just like many Git errors.
 
-* Set your name and email. Do as it said, i.e:
+Set your name and email like it said:
 
 ```bash
 $ git config --global user.email "slug@ucsc.edu"
 $ git config --global user.name "Sammy Slug"
 ```
 
-* You can also configure the identity of a repository separately:
+You can also configure the identity of a repository separately:
 
 ```bash
 $ git config --global user.email mine@personal.com
@@ -92,7 +92,7 @@ fatal: loose object ... (stored in .git/objects/...) is corrupt
 
 This usually happens with improper shutdowns of your virtual machine.
 
-Navigate to the root of your repository (where `.git` is located):[^1]
+Navigate to the root of your repository (where `.git` is located)and do:[^1]
 
 ```bash
 find .git/objects/ -size 0 -exec rm -f {} \;
@@ -103,10 +103,10 @@ git fetch origin
 
 Upon every push/pull from a remote called `origin`, a file called `ORIGIN_HEAD` is updated. If this file is corrupted, you may get a message similiar to:
 ```
-fatal: update_ref failed for ref 'ORIG_HEAD': cannot lock ref 'ORIG_HEAD': unable to resolve reference 'ORIG_HEAD': reference broken
+fatal: update_ref failed for ref 'ORIG_HEAD': ... reference broken
 ```
 
-To resolve this, you can remove the faulty file and then try your `git push` or `git pull` again.[^2]
+To resolve this, you can remove the faulty file and then try your `git push` or `git pull` again.[^2] The file `ORIGIN_HEAD` will be remade.
 ```bash
 # cd to root of your repo
 rm .git/ORIGIN_HEAD

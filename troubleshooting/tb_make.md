@@ -9,6 +9,9 @@ has_toc: true
 # Troubleshooting `make`
 {: .no_toc }
 
+{: .tip}
+You can find an explanation of many common error messages produced by `make` and their solutions at the [offiical documentation](https://www.gnu.org/software/make/manual/html_node/Error-Messages.html).
+
 ## Table of contents
 {: .no_toc .text-delta }
 
@@ -17,10 +20,10 @@ has_toc: true
 
 ## "Where is my executable!"
 
-`make` stops when the compiler finds a compilation error, so the final executable cannot be made. Fix all compilation errors and try once more.
+`make` stops when the compiler finds a compilation error, so the final executable cannot be made. Fix all compilation errors and try again.
 
 {: .important}
-Compilation *warnings* are usually excused by the compiler and the executable might be made. As good practice, the goal is the most quiet compilation with no warnings either, so fix warnings as well.
+Compilation *warnings* are usually excused by the compiler and the executable might be made. As good practice, the goal is the most quiet compilation with no warnings either. Try fixing warnings when possible.
 
 ---
 

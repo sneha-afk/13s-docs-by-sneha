@@ -206,10 +206,11 @@ The following are some commands you will find useful for maintaining your VM and
 
 | Command    | Purpose      |
 | ---------- | ------------ |
-| `sudo apt-get update` | Update package references |
-| `sudo apt-get upgrade` | Upgrade current system packages to the latest versions pointed to |
+| `sudo apt-get update`       | Update package references |
+| `sudo apt-get upgrade`      | Upgrade current system packages to the latest versions pointed to |
 | `sudo apt-get install <name> [-y]` | Install a package [and say yes to any prompts] |
-| `sudo apt autoremove` | Remove unused dependencies |
+| `sudo apt autoremove`       | Remove unused dependencies |
+| `sudo apt remove [package]` | Remove the specified package (but not its dependencies) | 
 
 ---
 
@@ -217,7 +218,7 @@ The following are some commands you will find useful for maintaining your VM and
 
 Arithmetic expressions are evaluated within` $(( ))`. 
 
-{. .important}
+{: .important}
 Do not confuse this with `$( )`, which `bash` interprets the inside as a command to run!
 
 The typical operators apply intuitively in bash:
