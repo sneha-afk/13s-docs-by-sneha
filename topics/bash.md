@@ -3,6 +3,7 @@ title: "Bash & Command Line"
 layout: default
 nav_order: 3
 has_toc: true
+last_modified_date: 2024-01-02 at 3:13 PM
 ---
 
 # `bash`

@@ -3,6 +3,9 @@ description: clang vs. gcc
 theme: just-the-docs
 color_scheme: dark
 
+# Source: https://icon-icons.com/icon/Programming/116566
+favicon_ico: "/assets/programming_116566.ico"
+
 url: https://sneha-afk.github.io/13s-docs
 heading_anchors: true # Separate links for headers
 
@@ -29,10 +32,10 @@ back_to_top: true
 back_to_top_text: "Back to top"
 
 gh_edit_link: true
-gh_edit_link_text: "See source on GitHub"
+gh_edit_link_text: "See page source on GitHub"
 gh_edit_repository: "https://github.com/sneha-afk/13s-docs" # the github URL for your repo
 gh_edit_branch: "main" # the branch that your docs is served from
 gh_edit_view_mode: "tree" # "tree" or "edit" if you want the user to jump into the editor immediately
 
 last_edit_timestamp: true
-last_edit_time_format: "%b %e %Y at %I:%M %p"
+last_edit_time_format: "%a %b %e %Y at %I:%M %p"
