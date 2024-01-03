@@ -255,7 +255,7 @@ Mac users often find a settings folder/file called `.DS_Store` in their repos wh
 
 ---
 
-[TS: Installation]: troubleshooting.html
+[TS: Installation]: /troubleshooting/tb_general.html
 [bash Page]: bash.html
 
 [^1]: `git add` options from [Stack Overflow](https://stackoverflow.com/a/572660)

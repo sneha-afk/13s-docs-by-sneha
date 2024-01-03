@@ -32,7 +32,7 @@ Most of the pages on this site were written during Fall 2023. If you find any er
 
 [^1]: [Jess's site][Jess's site] is evidently the inspiration for this one, thank you :)
 
-[^2]: Contributions would be highly appreciated for the [Troubleshooting](/troubleshooting/index.html) pages.
+[^2]: Contributions would be highly appreciated for the [Troubleshooting](/troubleshooting/) pages.
 
 [Just the Docs]: https://just-the-docs.github.io/just-the-docs/
 

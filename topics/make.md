@@ -408,4 +408,4 @@ prog: $(OBJ)
 
 [^2]: [Documentation](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html) about auto-variables
 
-[TS: Installation]: troubleshooting.html
+[TS: Installation]: /troubleshooting/tb_general.html
