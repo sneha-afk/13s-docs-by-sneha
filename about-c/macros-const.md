@@ -1,5 +1,5 @@
 ---
-title: "Macros vs. `const`"
+title: "Macros vs. const"
 parent: "About C"
 layout: default
 nav_order: 2
@@ -59,7 +59,7 @@ int main() {
 }
 ```
 
-<details open markdown="block">
+<details markdown="block">
   <summary>
     Answer (click here)
   </summary>
