@@ -4,7 +4,7 @@ parent: "About C"
 layout: default
 nav_order: 3
 has_toc: true
-last_modified_date: 2024-01-05 at 2:52 PM
+last_modified_date: 2024-01-05 at 3:08 PM
 ---
 
 # `struct`s
@@ -19,7 +19,23 @@ last_modified_date: 2024-01-05 at 2:52 PM
 ## Definitions
 
 ### `struct`
-A `struct` is somehwat analogous to a class in Java or a dataclass in Python. With structs, data can be grouped together.
+A `struct` is somewhat analogous to a class in Java or a dataclass in Python.
+
+```c
+// Declaration of a struct called student
+struct student {
+    int id;
+    int slug_points;
+}
+
+// Analogous to saying "int Sammy", the type here is a "struct student"
+struct student Sammy;
+Sammy.id = 1234;
+Sammy.slug_points = 0; // oh no
+
+// Analogous to "int Bob = 1", intialize in order of the fields declared in the struct definition
+struct student Bob = { 5678, 1 };
+```
 
 > "A member of a particular structure is referred to in an expression bya construction of the form: `structure-name.member`" (p.128)
 
@@ -54,7 +70,6 @@ typedef struct AObj {
     A another;
 } AObj; // shortcutting "struct AObj" to be called just AObj
 
-
 // When using the direct struct, access fields with .
 AObj obj;
 obj.a = 1;
@@ -77,10 +92,8 @@ struct AObj {
     int c;
 };
 
-// typedef A B (p.221)
-
 // Make it easier to refer to AObj
-// A: struct AObj, B: AObj
+// type: struct AObj, new name: AObj
 typedef struct AObj AObj;
 typedef AObj* A;
 
@@ -98,11 +111,7 @@ void another(A aobj) {
 }
 
 int main() {
-    // Declaring a struct type (p.128)
     struct AObj first;
-    // similar to "int first"
-
-    // Initializing with a corresponding list of intializers
     AObj second = {1, 2, 3};
 
     // Accessing from a struct, the . operator (p.128)
