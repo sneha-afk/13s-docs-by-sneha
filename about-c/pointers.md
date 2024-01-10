@@ -43,7 +43,7 @@ printf("a = %d\n", *ptr_a); // Get a and print it out
 ```
 
 {: .note}
-`*` means different operations depending if it's on the left or right hand side of a variable name, as seen with `int *ptr_a` to declare the pointer, and `*ptr_a` to deference it.
+`*` means different operations depending if it's on the left or right hand side of an equal sign, as seen with `int *ptr_a` to declare the pointer, and `*ptr_a` to deference it.
 
 Altogether:
 ```c
@@ -170,7 +170,7 @@ Inte: 2, Add.: 140729590748328
 Inte: 2, Add.: 140729590748328
 ```
 
-Notice the difference in addresses between characters and integers.
+Notice the difference in addresses between characters and integers. Also notice the one byte difference in addresses for the characters versus the four byte difference for the integers.
 
 Addresses are random, may be different if you run this!
 
