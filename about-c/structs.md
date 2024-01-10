@@ -4,7 +4,7 @@ parent: "About C"
 layout: default
 nav_order: 3
 has_toc: true
-last_modified_date: 2024-01-09 at 12:11 PM
+last_modified_date: 2024-01-10 at 12:11 PM
 ---
 
 # `struct`s

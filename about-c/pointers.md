@@ -4,7 +4,7 @@ parent: "About C"
 layout: default
 nav_order: 4
 has_toc: true
-last_modified_date: 2024-01-09 at 12:16 PM
+last_modified_date: 2024-01-10 at 1:44 PM
 ---
 
 # Pointers
@@ -20,7 +20,9 @@ last_modified_date: 2024-01-09 at 12:16 PM
 
 > "A **pointer** is a variable that contains the address of a variable." (p. 93)
 
-The name "pointer" is used to provide an easy visualization: a pointer "points" to a spot in memory by storing the address of it (usually expressed in terms of hex digits).
+The name "pointer" is an easy reminder: a pointer "points" to a spot in memory by storing the address of it (usually expressed in terms of hex digits).
+
+C is often referred to as a **low-level language** because of the ability to access memory with ease (not?) due to pointers.
 
 {: .warning}
 This can be, and is, the most difficult aspect of C. Tread carefully.
@@ -34,6 +36,9 @@ int *ptr_a = &a;
 ```
 
 The `int *` indicates a pointer to an integer.
+
+{: .note}
+You may come across `void *` which is a generic pointer that can refer to a pointer of any type. A common use for generic pointers is within ADTs: why have an linked list just for integers and another one just for characters when you can make one generic linked list that is reusable for any datatype?
 
 To obtain the *thing stored at that location* and is pointed to by the pointer use the **indirection** (colliqually a "deference") operator `*` on the left hand side of the variable.
 ```c
@@ -68,7 +73,11 @@ Since pointers are numbers in the system, some arithmetic can be done on them
 * `ptr++`, `ptr--`
     * Increment/decrement pointer by the size of the type its pointing to (i.e, if it’s an integer array, change by 4 bytes)
 * Comparison operators (>, <, >=, <=, ==, !=) all work between two pointers
-    * Remember, **these are comparing what is pointed to, only the literal addresses**: i.e, what is the difference between `a = b` and `*a = *b`?
+
+{: .important}
+>Remember, comparison operators between pointers are **not** comparing what is pointed to, only their literal addresses.
+>
+> What is the difference between `a == b` and `*a == *b` assuming `a` and `b` are pointers?
 
 The relationship between pointers and arrays is evident in the following equation for accessing an array element at index `i`.
 ```c
