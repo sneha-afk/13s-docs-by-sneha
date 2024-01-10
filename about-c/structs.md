@@ -142,7 +142,7 @@ int main() {
 
 
 ## References
-1. K&R, Chapter 6 (starts on p. 127 in the physical book)
+1. K&R, Chapter 6: Structures (page 127)
     * 6.1 - Basics of Structures
     * 6.2 - Structures and Fucntions
     * 6.4 - Pointers to Structures

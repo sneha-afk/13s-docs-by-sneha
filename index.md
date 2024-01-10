@@ -2,7 +2,7 @@
 title: Welcome
 layout: home
 nav_order: 1
-last_modified_date: 2024-01-02 at 3:55 PM
+last_modified_date: 2024-01-09 at 10:57 PM
 ---
 
 # This is a landing page.
@@ -18,8 +18,8 @@ Most of the pages on this site were written during Fall 2023. If you find any er
 ## Recommended resources
 1. The C Programming Language by Brian Kernighan and Dennis Ritchie
     * Nearly always required in a C class!
-    * **"reading in a CS class?1!!"** Fine, but I highly recommend reading chapter 8 about using C with UNIX.
-    * The 2nd edition is written for the ANSI standard which is most common, but the 1st edition is alright.
+    * **"reading in a CS class?1!!"** Fine, but I highly recommend reading chapter 5 about pointers and chapter 8 about using C with UNIX.
+    * The 2nd edition is written for the ANSI standard which is most commonly taught. While the 1st edition isn't substantially different, do try to get the 2nd.
 2. [Learn C](https://www.learn-c.org/), short and interactive
 3. [Jess's site][Jess's site], featuring many more guides and walkthroughs!
 
