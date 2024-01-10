@@ -35,7 +35,7 @@ int *ptr_a = &a;
 
 The `int *` indicates a pointer to an integer.
 
-To obtain the *thing stored at that location and is pointed to by the pointer* use the **indirection** (colliqually a "deference") operator `*` on the left hand side of the variable.
+To obtain the *thing stored at that location* and is pointed to by the pointer use the **indirection** (colliqually a "deference") operator `*` on the left hand side of the variable.
 ```c
 int a = 1;
 int *ptr_a = &a;
@@ -43,7 +43,7 @@ printf("a = %d\n", *ptr_a); // Get a and print it out
 ```
 
 {: .note}
-`*` means different operations depending if it's on the left or right hand side of an equal sign, as seen with `int *ptr_a` to declare the pointer, and `*ptr_a` to deference it.
+`*` means different operations depending if it's on the left or right hand side of an assignment operator, as seen with `int *ptr_a` to declare the pointer, and `*ptr_a` to deference it.
 
 Altogether:
 ```c
@@ -64,7 +64,7 @@ Since pointers are numbers in the system, some arithmetic can be done on them
 * ptr - num = ptr
 * ptr - ptr = distance between the two pointers
 * ~~ptr + ptr~~ Undefined, cannot subtract two pointers
-* ptr++, ptr--
+* `ptr++`, `ptr--`
     * Increment/decrement pointer by the size of the type its pointing to (i.e, if it’s an integer array, change by 4 bytes)
 * Comparison operators (>, <, >=, <=, ==, !=) all work between two pointers
 
@@ -73,6 +73,7 @@ The relationship between pointers and arrays is evident in the following equatio
 *(arr + i) = arr[i]
 ```
 
+Internally, the element at index `i` is stored at `ptr + size-of-datatype * i`. The size of the datatype is added implicitly, and all of this is abstracted away from you when you use `arr[i]`.
 
 ## Examples
 
@@ -145,32 +146,34 @@ int main() {
 
 ```c
 char* str = "hello";
-printf("Char: %c, Add.: %ld\n", *str, str);
-printf("Char: %c, Add.: %ld\n", *(str + 1), (str + 1));
+printf("Char: %c, Add.: %p\n", *str, str);
+printf("Char: %c, Add.: %p\n", *(str + 1), (str + 1));
     
 char* str_incr = str + 2;
-printf("Char: %c, Add.: %ld\n", *str_incr, str_incr);
-printf("Char: %c, Add.: %ld\n", *(str_incr + 1), (str_incr + 1));
+printf("Char: %c, Add.: %p\n", *str_incr, str_incr);
+printf("Char: %c, Add.: %p\n", *(str_incr + 1), (str_incr + 1));
     
 int nums[] = {1, 2, 3};
-printf("Inte: %d, Add.: %ld\n", *nums, nums);
-printf("Inte: %d, Add.: %ld\n", *(nums + 1), (nums + 1));
-printf("Inte: %d, Add.: %ld\n", nums[1], &(nums[1]));
+printf("Inte: %d, Add.: %p\n", *nums, nums);
+printf("Inte: %d, Add.: %p\n", *(nums + 1), (nums + 1));
+printf("Inte: %d, Add.: %p\n", nums[1], &(nums[1]));
 ```
 
 The output of this program is:
 ```
-Output:
-Char: h, Add.: 4202500
-Char: e, Add.: 4202501
-Char: l, Add.: 4202502
-Char: l, Add.: 4202503
-Inte: 1, Add.: 140729590748324
-Inte: 2, Add.: 140729590748328
-Inte: 2, Add.: 140729590748328
+Char: h, Add.: 0x402004
+Char: e, Add.: 0x402005
+Char: l, Add.: 0x402006
+Char: l, Add.: 0x402007
+Inte: 1, Add.: 0x7ffcd05fc994
+Inte: 2, Add.: 0x7ffcd05fc998
+Inte: 2, Add.: 0x7ffcd05fc998
 ```
 
-Notice the difference in addresses between characters and integers. Also notice the one byte difference in addresses for the characters versus the four byte difference for the integers.
+{: .note}
+`%p` is the format specifier for pointers to print them out in hex digits. You can also use `%ld` to print them out as integers.
+
+Notice how the characters are one byte away from each other while integers are four bytes away from each other, showing how the system understands the datatype of the array.
 
 Addresses are random, may be different if you run this!
 

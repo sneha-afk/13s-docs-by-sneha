@@ -4,7 +4,7 @@ parent: "About C"
 layout: default
 nav_order: 3
 has_toc: true
-last_modified_date: 2024-01-05 at 3:08 PM
+last_modified_date: 2024-01-09 at 11:21 AM
 ---
 
 # `struct`s
@@ -50,11 +50,11 @@ typedef A B
 ```
 
 {: .important}
-There is no "creating" new datatypes within C, the closest concept to this would be declaring a new `struct` that is `typdef`'ed to an identifier.
+There is no "creating" new datatypes within C, the closest concept to this would be declaring a new `struct` that is `typedef`'ed to an identifier.
 
 ## Example
 
-This example makes a new `struct` called `AObj` and then `typdef`'s a pointer to the struct to be called `A` for ease of use.
+This example makes a new `struct` called `AObj` and then `typedef`'s a pointer to the struct to be called `A` for ease of use.
 
 {: .note}
 This is a very common pattern within C programming, become comfortable with it.
@@ -138,6 +138,22 @@ int main() {
 
     return 0;
 }
+```
+
+The output of this program is:
+```
+Field b of second struct: second.b = 2
+
+third points to the second struct: third->b = 2
+
+another(&second)
+	aobj->b = 2
+
+another(third)
+	aobj->b = 2
+
+struct-ception: . and -> are left-to-right associative
+	fourth.aobj->b = fifth->aobj->b = 2
 ```
 
 
