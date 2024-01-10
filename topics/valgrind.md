@@ -349,7 +349,7 @@ free(a); // no problem since a = NULL
 
 ---
 
-[TS: Installation]: /troubleshooting/tb_general.html
+[TS: Installation]: ../troubleshooting/tb_general.html
 
 [bash Page]: bash.html
 

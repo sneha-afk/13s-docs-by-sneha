@@ -4,7 +4,7 @@ parent: "About C"
 layout: default
 nav_order: 4
 has_toc: true
-last_modified_date: 2024-01-09 at 11:12 PM
+last_modified_date: 2024-01-09 at 12:16 PM
 ---
 
 # Pointers
@@ -62,11 +62,13 @@ Since pointers are numbers in the system, some arithmetic can be done on them
 
 * ptr + num = ptr
 * ptr - num = ptr
-* ptr - ptr = distance between the two pointers
-* ~~ptr + ptr~~ Undefined, cannot subtract two pointers
+* ptr - ptr = distance between the two pointers in terms of the number of elements between them
+    * Undefined if the two pointers are not part of the same array[^1]
+* ~~ptr + ptr~~ Undefined, cannot add two pointers
 * `ptr++`, `ptr--`
     * Increment/decrement pointer by the size of the type its pointing to (i.e, if it’s an integer array, change by 4 bytes)
 * Comparison operators (>, <, >=, <=, ==, !=) all work between two pointers
+    * Remember, **these are comparing what is pointed to, only the literal addresses**: i.e, what is the difference between `a = b` and `*a = *b`?
 
 The relationship between pointers and arrays is evident in the following equation for accessing an array element at index `i`.
 ```c
@@ -181,3 +183,6 @@ Addresses are random, may be different if you run this!
 1. K&R, Chapter 5: Pointers and Arrays (page 93)
 2. A7.4.2 Address Operator (p.203)
 3. A7.4.3 Indirection Operator (p.204)
+
+---
+[^1]: Pointer addition/substraction on [StackOverflow](https://stackoverflow.com/a/39984954)

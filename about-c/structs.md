@@ -4,7 +4,7 @@ parent: "About C"
 layout: default
 nav_order: 3
 has_toc: true
-last_modified_date: 2024-01-09 at 11:21 AM
+last_modified_date: 2024-01-09 at 12:11 PM
 ---
 
 # `struct`s
@@ -78,6 +78,8 @@ obj.a = 1;
 A ptr_obj;
 ptr_obj->a = 1;
 ```
+
+The first `typedef` might be confusing, how can you define a pointer to `struct AObj` before you define said `struct`? Note that this *only* works for pointers to `struct`s, since C trusts that you will eventually define `struct AObj` before you use `A`.
 
 ## Bigger example
 
