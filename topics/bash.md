@@ -37,7 +37,7 @@ Once you have opened a terminal, you will most likely end up somewhere like:
 slug@13s:~$
 ```
 
-The `~` (tilde) indicates you are in your home directory.
+The `~` (tilde) indicates you are in your **home directory**.
 
 If you were in a folder called C within B within A within the home directory:
 
@@ -45,11 +45,26 @@ If you were in a folder called C within B within A within the home directory:
 slug@13s:~/A/B/C$
 ```
 
+Or if you wanted to get to that folder from some other location, trace it from home:
+```
+slug@13s:~/somewhere-else$ cd ~/A/B/C
+slug@13s:~/A/B/C$
+```
+
+The **root directory**, `/`, is the starting point of your file system. The home directory and other system files trace their paths to the root.
+```
+slug@13s:~$ ls /
+bin boot cdrom dev etc home lib ...
+```
+
+> The root file system is the file system contained on the same disk partition on which the root directory is located; it is the filesystem on top of which all other file systems are mounted as the system boots up.[^3]
+
 | Location     |              |
 | ------------ | ------------ |
 | `.`          | Refers to the current directory, “here” |
 | `..`         | Parent directory, “up” |
 | `~`          | Home directory |
+| `/`          | Root directory |
 | `/dev/null`  | Like a trash can, content written into it disappears | 
 
 See the [`cd` command](#command-line) for specific information on moving around.
@@ -331,3 +346,5 @@ I used single `[ ]`, which is technically correct but an older standard, it’s 
 [^1]: Bash tests from [Stack Overflow](https://askubuntu.com/a/558990)
 
 [^2]: [More on `apt` commands](https://phoenixnap.com/kb/apt-linux)
+
+[^3]: [Wikipedia page](https://en.wikipedia.org/wiki/Root_directory) about the root directory
