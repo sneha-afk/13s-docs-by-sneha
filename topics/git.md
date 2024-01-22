@@ -74,7 +74,7 @@ In their most simplest form, git commits are in a **linear chronological order**
 
 > Since timeA < timeC, fileC either does not exist within the context of timeA, or timeA contains an older version of the file. timeC will have all of the information of timeA, plus any updates.
 
-<img src="assets/git-commit-order.svg" alt="diagram depicting a sequence of git commits"/>
+<img src="../assets/git-commit-order.svg" alt="diagram depicting a sequence of git commits"/>
 
 ### Hash
 
@@ -86,7 +86,7 @@ The short form of a hash is usually the first 8 characters, but you will **most 
 
 |       |  |
 |------ |--|
-| <img src="assets/git-commit-example.png" alt="diagram depicting a sequence of git commits"/> | GitLab's interface in the "Commits" tab of the repo.<BR><BR>`83f4cb40` is the short-hand, the full commit hash is copied into my clipboard when I click the clipboard icon. |
+| <img src="../assets/git-commit-example.png" alt="diagram depicting a sequence of git commits"/> | GitLab's interface in the "Commits" tab of the repo.<BR><BR>`83f4cb40` is the short-hand, the full commit hash is copied into my clipboard when I click the clipboard icon. |
 
 Referring to the diagram in [Commit](#commit), you will choose which point in history your repo will be graded on. **In most cases, this will be your most recent commit** (see the sidebar of a GitLab repo -> Code -> Commits), but in case it isn’t, you have the ability to choose by submitting the hash of any commit.
 
@@ -100,7 +100,7 @@ The only part where you need an internet connection is to push onto the remote r
 
 The following diagram shows the relationship between the working directory (where you are currently coding in), the staging area (the preparation for a commit), the local repository (where your commits are), and the remote repository (the online location).
 
-<img src="assets/git-workflow-diagram.svg" alt="diagram depicting the git workflow"/>
+<img src="../assets/git-workflow-diagram.svg" alt="diagram depicting the git workflow"/>
 
 ### Branch
 
@@ -115,7 +115,7 @@ Say you are an employee tasked to work on a feature A. Instead of wrecking havoc
 
 |       |  |
 |------ |--|
-| <img src="assets/git-branch-example.png" alt="diagram depicting a sequence of git commits"/> | A peek into the branches of Microsoft’s (open-source!) [VSCode repository](https://github.com/microsoft/vscode).<BR><BR>Why do you think having separate branches for bug fixes, new features, etc. is crucial to separate away from production code that countless users are using at this moment? |
+| <img src="../assets/git-branch-example.png" alt="diagram depicting a sequence of git commits"/> | A peek into the branches of Microsoft’s (open-source!) [VSCode repository](https://github.com/microsoft/vscode).<BR><BR>Why do you think having separate branches for bug fixes, new features, etc. is crucial to separate away from production code that countless users are using at this moment? |
 
 ### And there's more.
 

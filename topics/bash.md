@@ -3,7 +3,7 @@ title: "Bash & Command Line"
 layout: default
 nav_order: 3
 has_toc: true
-last_modified_date: 2024-01-02 at 3:13 PM
+last_modified_date: 2024-01-17 at 5:40 PM
 ---
 
 # `bash`
@@ -152,7 +152,7 @@ UNIX has `man` (manual) pages for bash commands (and C functions too):
 man echo
 ```
 
-<img src="assets/bash-man-example.png" alt="command line output of man echo" height=300 />
+<img src="../assets/bash-man-example.png" alt="command line output of man echo" height=300 />
 
 ### Command-Line
 

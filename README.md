@@ -1,9 +1,12 @@
 # 13s-docs
 
-## [Visit the site!](https://sneha-afk.github.io/13s-docs/)
+A unified collection of my docs covering topics from tutoring CSE13S @ UCSC.
+
+> Found a typo or want to contribute. Send in a pull request.
 
 ```bash
-$ echo "A collection of my docs covering the tools and topics covered in CSE13S @ UCSC."
-$ echo "Found a typo or want to contribute? Send in a pull request."
 $ sudo shutdown now
 ```
+
+## [Visit the site!](https://sneha-afk.github.io/13s-docs/)
+
