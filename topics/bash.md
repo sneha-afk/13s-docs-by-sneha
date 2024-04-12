@@ -3,7 +3,7 @@ title: "Bash & Command Line"
 layout: default
 nav_order: 3
 has_toc: true
-last_modified_date: 2024-01-17 at 5:40 PM
+last_modified_date: 2024-04-12 at 12:00 PM
 ---
 
 # `bash`
@@ -63,7 +63,7 @@ bin boot cdrom dev etc home lib ...
 | ------------ | ------------ |
 | `.`          | Refers to the current directory, “here” |
 | `..`         | Parent directory, “up” |
-| `~`          | Home directory |
+| `~`          | Alias for the home directory (long form: `home/username`) |
 | `/`          | Root directory |
 | `/dev/null`  | Like a trash can, content written into it disappears | 
 
@@ -143,7 +143,7 @@ cat a.txt | sort | uniq -c > b.txt
 
 ## Commands
 
-Google exists. However, make sure you are able to explain what each command you are using is doing.
+Google exists. However, resist the temptation not to learn what each command is doing from some Stack Overflow you found! If you use a command, you should be able to explain what it is doing.
 
 {: .note}
 UNIX has `man` (manual) pages for bash commands (and C functions too):
@@ -164,10 +164,10 @@ These are your basic tools for navigating your file system, and there’s tons m
 | `ls`	     | List contents of a directory (current if no other path specified) |	`-1`: display vertically<BR>`-a`: display hidden<BR>`-s`: size of each file |
 | `cd`       | Change directory	| `cd ..`: go up to parent<BR>`cd`: no options, go to `~/` (home) |
 | `mkdir`    | Make a directory (folder) |
-| `touch`    | Create a blank file (0 bytes) |
-| `cat`      | Print out the contents of a file |
+| `touch`    | Create a blank file (0 bytes) if it does not exist, or update the access and modification timestamps of an existing file |
+| `cat`      | Print out the contents of a file (stands for "concatenate", since many files can be printed together at once) |
 | `mv`       | Move a file |
-| `cp`       | Copy a file | See also: `scp`|
+| `cp`       | Copy a file | See also: `scp` and the lovely `sftp`|
 | `rm`       | Remove a file/directory (**CAREFUL!**) | `-r`: recursive, for deleting folders |
 | `echo`     | Print out a line | `-e`: recognize escape sequences like `\t`<BR>`-n`: omit the ending `\n` |
 
@@ -192,7 +192,7 @@ ls -1
 ```
 
 {: .tip}
-Bash commands can be run in succession on one line using `&&`: `mkdir folder && cd folder`
+Bash commands can be run in succession on one line using `&&`: `mkdir folder && cd folder`. Note that if the first command fails, the rest do not execute (boolean short-circuiting!).
 
 ### Utility commands
 
@@ -200,7 +200,7 @@ There are many, many more, but these should give you an idea of the types of com
 
 | Command    | Purpose      |
 | ---------- | ------------ |
-| `sort`     | Sort lines of a file |
+| `sort`     | Sort **lines** of a file (think: how can you sort individual words/tokens of a file?) |
 | `tr`       | Translate the characters of one sequence into another (mapping abc -> def so all a’s become d’s, b’s become e’s, etc…).<BR><BR>See other patterns like `[A-Z]` and `[:upper:]`|
 | `uniq`     | Find the unique lines of a file (can get frequency counts too)|
 | `head`     | Print the first number of lines of a file |
@@ -339,7 +339,7 @@ fi
 ```
 
 {: .highlight}
-I used single `[ ]`, which is technically correct but an older standard, it’s best to use `[[ ]]` for compatibility with many different systems.
+I used single `[ ]`, which is technically correct but an older standard, it’s best to use `[[ ]]` for compatibility with many different systems. Most likely, `[ ]` will work fine in most cases.
 
 
 ---
