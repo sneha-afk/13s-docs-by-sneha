@@ -62,8 +62,8 @@ OBJECTS = $(subst .c,.o,$(SOURCES))
 # PHONY targets are special targets that do not create files
 .PHONY = all utility1 utility2 ...
 
-# Invoking just "make" defaults to "make all"
-# It's good practice to specify "all" for this reason
+# Invoking "make" defaults to the first seen target, or immediately to "all"
+# Good practice: specify "all" to a core target you want to default to
 all: target t2 ...
 
 # Targets are invoked by running "make target"
@@ -124,13 +124,11 @@ In this example, the main program was coded in `prog.c`, but required code that 
 Defining the build process once for these files in a Makefile gives greater reusability and convenience, in addition to helping with complex compilations like the previous example. By providing a Makefile, you are specifying the exact compilation your program needs, and anyone else (aka, the graders!) can compile your program the same exact way you did.
 
 {: .note}
-> Most compilers allow you to skip the object file creation stage like below, but it’s beneficial to separate this stage in cases where you are managing several dependencies towards an executable. 
+> Most compilers allow you to skip the object file creation stage like below, but it is beneficial to create intermediary static library files (as in, the object files) to use between different executables, and for smaller compile times as `make` will only recompile files that have been recently changed (more on this later).
 > ```bash
 > $ gcc file1.c file2.c file3.c -o output
 > ```
-> When you separate the object file creation, you will see compilation warnings and errors specific to a file much more clearly than when you use the shortcut.
->
-> Sounds like a lot of work? Use a `Makefile`!
+> Sounds like a lot of work to recompile each `.o`? Use a `Makefile`!
 
 ---
 
@@ -254,10 +252,10 @@ $ ./bar
 Hello World!
 ```
 
-What if I changed the code in my bar.c? I will have to recompile the program! But to be sure I am not compiling with any older object files, I will use my cleaning utility target.
+What if I changed the code in my bar.c? I will have to recompile the program! `make` uses a topological ordering to detect if any dependency has been changed for a target. It checks whether the modification time of a dependency is more recent than the previous build of the target, and rebuilds the target to account for the updates.
+
+Calling `make bar` again results in:
 ```bash
-$ make clean
-rm -f *.o bar
 # makes changes to bar.c
 $ make bar
 gcc -c bar.c
@@ -265,6 +263,9 @@ gcc -o bar bar.o -lm
 $ ./bar
 World Hello!
 ```
+
+{: .highlight}
+I tend to run a `make clean` before recompiling each time to be reassured the executable is made from scratch. This could be a problem in larger projects where there's many more files. Keep the topological nature of `make` in mind!
 
 {: .important}
 “I changed my code, why does it still have problems!” You must recompile after each code change to see the resultant change take place.
